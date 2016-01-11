@@ -230,7 +230,7 @@ $cus_name = $row['cus_name'];
 //                                        echo "<td>" . $row['cus_addr'] . "</td>";
 //                                        echo "<td>" . $row['cus_code'] . "</td>";
 //                                        echo "</tr>";
-echo "$cus_name";
+echo "<a href='customerdetail.php?cus_no=$cus_no'>$cus_name</a>";
 
 //include "bot.php";
 ?>   
@@ -264,87 +264,12 @@ echo "$cus_name";
                         	</script>
                         	
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-3">
                         <div class="form-group">
                                 <label>Invoice No.</label>
                                 <input class="form-control" placeholder="Enter text" id="inv_name" name="inv_name">
                             </div>
-                        <h3>CHEMICALS Container SEA FREIGHT</h3>
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Packing type</th>
-                                        <th>Unit</th>
-                                        <th>Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>FCL 20 feet First Container</td>
-                                        <td>Baht/Container</td>
-                                        <td>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
-                                                <input type="text" class="form-control" placeholder="Enter Number"  id="fcl20f" name="fcl20f">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>FCL 20 feet Next Container</td>
-                                        <td>Baht/Container</td>
-
-                                        <td>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
-                                                <input type="text" class="form-control" placeholder="Enter Number"  id="fcl20n" name="fcl20n">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>FCL 40 feet First Container</td>
-                                        <td>Baht/Container</td>
-                                        <td>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
-                                                <input type="text" class="form-control" placeholder="Enter Number"  id="fcl40f" name="fcl40f">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>FCL 40 feet Next Container</td>
-                                        <td>Baht/Container</td>
-                                        <td>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
-                                                <input type="text" class="form-control" placeholder="Enter Number"  id="fcl40n" name="fcl40n">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>LCL < 10,000 KG.</td>
-                                        <td>Baht/Shipment</td>
-                                        <td>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
-                                                <input type="text" class="form-control" placeholder="Enter Number"  id="lcl1" name="lcl1">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>> 10,000 KG.</td>
-                                        <td>Baht/KG.</td>
-                                        <td>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
-                                                <input type="text" class="form-control" placeholder="Enter Number"  id="lcl2" name="lcl2">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                        
                 
                         <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
                         <input class="btn btn-default" type="submit" name="submit" value="save">

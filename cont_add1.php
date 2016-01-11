@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Customer :-)</title>
+    <title>SB Admin - Bootstrap Admin Template</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -26,22 +26,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-    $("button").click(function(){
-        $.ajax({url: "customer_add.php", success: function(result){
-            $("#div1").html(result);
-        }});
-    });
-});
-$(document).ready(function(){
-    $('table tr').click(function(){
-        window.location = $(this).data('href');
-        return false;
-    });
-});
-</script>
+
 </head>
 
 <body>
@@ -212,8 +197,8 @@ $(document).ready(function(){
             </div>
             <!-- /.navbar-collapse -->
         </nav>
-        
-       <div id="page-wrapper">
+
+        <div id="page-wrapper">
 
             <div class="container-fluid">
 
@@ -221,30 +206,35 @@ $(document).ready(function(){
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Customer
+                            Invoice
                             <small>
-                            <?php
-                            //print_r($_GET);
-                            
-                            //include "navcus.php";
-                            //include "topcus.php";
-                            //echo $cus_no;
-                            
-                            include "inc/dbcon.php";
-                            
-                            $cus_no = $_GET['cus_no'];
-                            $sql="SELECT * FROM customer WHERE cus_no='$cus_no'";
-                            //$sql="SELECT * FROM customer";
-                            $result = mysqli_query($con,$sql);
-                            $row = mysqli_fetch_array($result);
-                            $cus_name = $row['cus_name'];
-                            
-                                     echo "</tr>";
-                            echo "$cus_name";
-                            mysqli_close($con);
-                            //include "bot.php";
-                            ?>   
-                         
+<?php
+//print_r($_GET);
+
+//include "navcus.php";
+//include "topcus.php";
+//echo $cus_no;
+
+include "inc/dbcon.php";
+
+$inv_no = $_GET['inv_no'];
+$sql="SELECT * FROM invoice WHERE inv_no='$inv_no'";
+//$sql="SELECT * FROM customer";
+$result = mysqli_query($con,$sql);
+$row = mysqli_fetch_array($result);
+$inv_name = $row['inv_name'];
+//$cus_no = $row['cus_no'];
+
+//                                        echo "<tr>";
+//                                        echo "<td>" . $num . "</td>";
+//                                       echo $row['cus_name'];
+//                                        echo "<td>" . $row['cus_addr'] . "</td>";
+//                                        echo "<td>" . $row['cus_code'] . "</td>";
+//                                        echo "</tr>";
+echo "<a href='invdetail.php?inv_no=$inv_no'>$inv_name</a>";
+//mysqli_close($con);
+//include "bot.php";
+?>   
                             </small>
                         </h1>
                         <ol class="breadcrumb">
@@ -255,145 +245,120 @@ $(document).ready(function(){
                                 <i class="fa fa-file"></i> <a href="customer.php">Customer</a>
                             </li>
                         </ol>
-                        
-                </div>
-                    <div class="col-lg-12" >
-                        <form action="billto_add1.php">
-                            <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
-                            <button class="btn btn-primary">Bill to</button>
-                        </form>
-
                     </div>
                 </div>
                 <!-- /.row -->
-                    <div>
+                <form action="cont_add2.php" name="frmMain" method="post" target="iframe_target">
+                     
+                        	<iframe id="iframe_target" name="iframe_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
+                        	<script language="JavaScript">
+                        		function showResult(result)
+                        		{
+                        			if(result==1)
+                        			{
+                        				document.getElementById("divResult").innerHTML = "<font color=green> Save successfully! </font>  <br>";
+                        			}
+                        			else
+                        			{
+                        				document.getElementById("divResult").innerHTML = "<font color=red> Error!! Cannot save data </font> <br>";
+                        			}
+                        		}
+                        	</script>
+                        	
+                        	<div class="form-group">
+                                <label>Shipment</label>
+                                <select class="form-control" id="ship" name="ship">
+                                    <option value="1">IMPORT</option>
+                                    <option value="2">EXPORT</option>
+                                </select>
+                            </div>
+                            
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                                <label>Name</label>
+                                <input class="form-control" placeholder="Enter text" id="cont_name" name="cont_name">
+                            </div>
                         <div class="table-responsive">
-                            <table class="table table-hover table-striped">
+                            <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Customer</th>
-                                        <th>Address</th>
-                                        <th>Tax ID.</th>
+                                        <th>Packing type</th>
+                                        <th>Unit</th>
+                                        <th>Price</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
-                                    include "inc/dbcon.php";
-                                    $result = mysqli_query($con,"SELECT * FROM billto WHERE cus_no='$cus_no'");
-                                    $num=1;
-                                    while($row = mysqli_fetch_array($result))
-                                        {
-                                        //echo "<tr data-href='customerdetail.php?cus_no=" . $row['cus_no'] . "'>";
-                                        echo "<tr>";
-                                        echo "<td>" . $num . "</td>";
-                                        echo "<td>" . $row['billto_name'] . "</td>";
-                                        echo "<td>" . $row['billto_addr'] . "</td>";
-                                        echo "<td>" . $row['billto_id'] . "</td>";
-                                        echo "</tr>";
-                                        $num++;
-                                        }
-                                    mysqli_close($con);
-                                    ?>
-                                    
+                                    <tr>
+                                        <td>FCL 20 feet First Container</td>
+                                        <td>Baht/Container</td>
+                                        <td>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
+                                                <input type="text" class="form-control" placeholder="Enter Number"  id="fcl20f" name="fcl20f">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>FCL 20 feet Next Container</td>
+                                        <td>Baht/Container</td>
+
+                                        <td>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
+                                                <input type="text" class="form-control" placeholder="Enter Number"  id="fcl20n" name="fcl20n">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>FCL 40 feet First Container</td>
+                                        <td>Baht/Container</td>
+                                        <td>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
+                                                <input type="text" class="form-control" placeholder="Enter Number"  id="fcl40f" name="fcl40f">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>FCL 40 feet Next Container</td>
+                                        <td>Baht/Container</td>
+                                        <td>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
+                                                <input type="text" class="form-control" placeholder="Enter Number"  id="fcl40n" name="fcl40n">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>LCL < 10,000 KG.</td>
+                                        <td>Baht/Shipment</td>
+                                        <td>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
+                                                <input type="text" class="form-control" placeholder="Enter Number"  id="lcl1" name="lcl1">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>> 10,000 KG.</td>
+                                        <td>Baht/KG.</td>
+                                        <td>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
+                                                <input type="text" class="form-control" placeholder="Enter Number"  id="lcl2" name="lcl2">
+                                            </div>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                    <!-- /.row -->
-                    <div class="row">
-                    <div class="col-lg-12" >
-                        <form action="cuscontact_add1.php">
-                            <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
-                            <button class="btn btn-primary">Contact Name</button>
-                        </form>
+                
+                        <input type="hidden" name="inv_no" value="<?php echo($inv_no); ?>" />
+                        <input class="btn btn-default" type="submit" name="submit" value="save">
 
-                    </div>
-                    </div>
-                    <div>
-                        <div class="table-responsive">
-                            <table class="table table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Contact Name</th>
-                                    </tr>
-                                </thead>
-                                    <tbody>
-                                        
-                                        <?php
-                                        include "inc/dbcon.php";
-                                        $result = mysqli_query($con,"SELECT * FROM cuscontact WHERE cus_no='$cus_no'");
-                                        $num=1;
-                                        while($row = mysqli_fetch_array($result))
-                                            {
-                                            echo "<tr>";
-                                            echo "<td>" . $num . "</td>";
-                                            echo "<td>" . $row['cuscontact_name'] . "</td>";
-                                            echo "</tr>";
-                                            $num++;
-                                            }
-                                        mysqli_close($con);    
-                                        ?>
-                                        
-                                    </tbody>
-                                </table>
-                        </div>
-                    </div>
-                <!-- /.row -->
-                    <div class="row">
-                    <div class="col-lg-12" >
-                        <form action="inv_add1.php">
-                            <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
-                            <button class="btn btn-primary">Invoice</button>
-                        </form>
-
-                    </div>
-                    </div>
-                    <div>
-                        <div class="table-responsive">
-                            <table class="table table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Invoice</th>
-                                        <th>Date</th>
-                                    </tr>
-                                </thead>
-                                    <tbody>
-                                        
-                                        <?php
-                                        include "inc/dbcon.php";
-                                        $result = mysqli_query($con,"SELECT * FROM invoice WHERE cus_no='$cus_no'");
-                                        $num=1;
-                                        while($row = mysqli_fetch_array($result))
-                                            {
-                                            echo "<tr data-href='invdetail.php?inv_no=" . $row['inv_no'] . "'>";
-                                            echo "<td>" . $num . "</td>";
-                                            echo "<td>" . $row['inv_name'] . "</td>";
-                                            echo "<td>" . $row['inv_date'] . "</td>";
-                                            echo "</tr>";
-                                            $num++;
-                                            }
-                                        mysqli_close($con);    
-                                        ?>
-                                        
-                                    </tbody>
-                                </table>
-                        </div>
-                    </div>
-                <!-- /.row -->
-                    <div class="row">
-                    <div class="col-lg-12" >
-                        <form action="customer_edit1.php">
-                            <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
-                            <button class="btn btn-primary">Customer Edit</button>
-                        </form>
-
-                    </div>
-                    </div>
-                <!-- /.row -->
-                                    
+                    </form>
+                </div>
             </div>
             <!-- /.container-fluid -->
 

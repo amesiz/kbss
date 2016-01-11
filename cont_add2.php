@@ -7,22 +7,29 @@
 	
 	$con = mysqli_connect(HOST,USERNAME,PASSWORD,DB);
 */
+
 include "inc/dbcon.php";
 
-    $inv_name = $_POST['inv_name'];
-	/*$fcl20f = $_POST['fcl20f'];
+    $cont_name = $_POST['cont_name'];
+	$fcl20f = $_POST['fcl20f'];
 	$fcl20n = $_POST['fcl20n'];
 	$fcl40f = $_POST['fcl40f'];
 	$fcl40n = $_POST['fcl40n'];
 	$lcl1 = $_POST['lcl1'];
-	$lcl2 = $_POST['lcl2'];*/
-	$cus_no = $_POST['cus_no'];
+	$lcl2 = $_POST['lcl2'];
+	$inv_no = $_POST['inv_no'];
+	$ship = $_POST['ship'];
 	
-$d = strtotime("now");
-$e = date("Y-m-d", $d);
+//	echo "$cont_name";
+//	echo "$inv_no";
+//	echo "$ship";
 	
-//	$sql = "insert into invoice (inv_no, inv_name, fcl20f, fcl20n, fcl40f, fcl40n, lcl1, lcl2, inv_date, cus_no) values ('','$inv_name','$fcl20f','$fcl20n','$fcl40f','$fcl40n','$lcl1','$lcl2','$e','$cus_no')";
-	$sql = "insert into invoice (inv_no, inv_name, inv_date, cus_no) values ('','$inv_name','$e','$cus_no')";
+
+//$d = strtotime("now");
+//$e = date("Y-m-d", $d);
+	
+	$sql = "insert into container (cont_no, cont_name, fcl20f, fcl20n, fcl40f, fcl40n, lcl1, lcl2, inv_no, ship) values ('','$cont_name','$fcl20f','$fcl20n','$fcl40f','$fcl40n','$lcl1','$lcl2','$inv_no','$ship')";
+//	$sql = "insert into invoice (inv_no, inv_name, inv_date, cus_no) values ('','$inv_name','$e','$cus_no')";
 	if(mysqli_query($con, $sql)){
 //		echo 'success';
 //		echo '<meta HTTP-EQUIV="REFRESH" content="0; url=customer.html">';
@@ -43,4 +50,5 @@ else
 	//echo '<script>window.top.window.showResult("2");</script>';
 }
 mysql_close($mysqli_query);
+
 ?>
