@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -223,35 +223,28 @@ $(document).ready(function(){
                         <h1 class="page-header">
                             Customer
                             <small>
-<?php
-//print_r($_GET);
-
-//include "navcus.php";
-//include "topcus.php";
-//echo $cus_no;
-
-include "inc/dbcon.php";
-
-$cus_no = $_GET['cus_no'];
-$sql="SELECT * FROM customer WHERE cus_no='$cus_no'";
-//$sql="SELECT * FROM customer";
-$result = mysqli_query($con,$sql);
-$row = mysqli_fetch_array($result);
-$cus_name = $row['cus_name'];
-
-//                                        echo "<tr>";
-//                                        echo "<td>" . $num . "</td>";
-//                                       echo $row['cus_name'];
-//                                        echo "<td>" . $row['cus_addr'] . "</td>";
-//                                        echo "<td>" . $row['cus_code'] . "</td>";
-//                                        echo "</tr>";
-echo "$cus_name";
-
-//include "bot.php";
-?>   
-                                
-                                
-                                
+                            <?php
+                            //print_r($_GET);
+                            
+                            //include "navcus.php";
+                            //include "topcus.php";
+                            //echo $cus_no;
+                            
+                            include "inc/dbcon.php";
+                            
+                            $cus_no = $_GET['cus_no'];
+                            $sql="SELECT * FROM customer WHERE cus_no='$cus_no'";
+                            //$sql="SELECT * FROM customer";
+                            $result = mysqli_query($con,$sql);
+                            $row = mysqli_fetch_array($result);
+                            $cus_name = $row['cus_name'];
+                            
+                                     echo "</tr>";
+                            echo "$cus_name";
+                            mysqli_close($con);
+                            //include "bot.php";
+                            ?>   
+                         
                             </small>
                         </h1>
                         <ol class="breadcrumb">
@@ -262,45 +255,18 @@ echo "$cus_name";
                                 <i class="fa fa-file"></i> Customer
                             </li>
                         </ol>
-                        <div class="col-lg-12" >
-                        <!--    
-                        <div id="div1">
-                        -->
+                        
+                </div>
+                    <div class="col-lg-12" >
                         <form action="billto_add1.php">
                             <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
                             <button class="btn btn-primary">Bill to</button>
                         </form>
-                        
-                        
-                        
-                        <!--
-                        <button type="button" class="btn btn-primary" onclick="location.href='billto_add1.php'">Bill to</button>
-                        
 
-                        <button type="button" class="btn btn-primary" onclick="location.href='contact_add1.php'">Contact</button>
-                        -->
-                        <!--
-                        </div>
-                        -->
-                        </div>
-                        <!--
-                        <form action="newjobs.html">
-                        <button type="button" class="btn btn-lg btn-primary" onclick="location.href='newjobs.html'">New JOB</button>
-                        </form>
-                        
-                        <div class="col-lg-6" >
-                            <div class="form-group input-group">
-                                <input type="text" class="form-control">
-                                <span class="input-group-btn"><button class="btn btn-default" type="button"><i class="fa fa-search"></i></button></span>
-                            </div>
-                        </div>
-                        -->
                     </div>
                 </div>
                 <!-- /.row -->
-                <div>
                     <div>
-                    
                         <div class="table-responsive">
                             <table class="table table-hover table-striped">
                                 <thead>
@@ -313,6 +279,7 @@ echo "$cus_name";
                                 </thead>
                                 <tbody>
                                     <?php
+                                    include "inc/dbcon.php";
                                     $result = mysqli_query($con,"SELECT * FROM billto WHERE cus_no='$cus_no'");
                                     $num=1;
                                     while($row = mysqli_fetch_array($result))
@@ -326,51 +293,24 @@ echo "$cus_name";
                                         echo "</tr>";
                                         $num++;
                                         }
+                                    mysqli_close($con);
                                     ?>
                                     
                                 </tbody>
                             </table>
                         </div>
                     </div>
+                    <!-- /.row -->
+                    <div class="row">
                     <div class="col-lg-12" >
-                        <!--    
-                        <div id="div1">
-                        -->
                         <form action="cuscontact_add1.php">
                             <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
-                            <button class="btn btn-primary">Cotact Name</button>
+                            <button class="btn btn-primary">Contact Name</button>
                         </form>
-                        
-                        
-                        
-                        <!--
-                        <button type="button" class="btn btn-primary" onclick="location.href='billto_add1.php'">Bill to</button>
-                        
 
-                        <button type="button" class="btn btn-primary" onclick="location.href='contact_add1.php'">Contact</button>
-                        -->
-                        <!--
-                        </div>
-                        -->
-                        </div>
-                        <!--
-                        <form action="newjobs.html">
-                        <button type="button" class="btn btn-lg btn-primary" onclick="location.href='newjobs.html'">New JOB</button>
-                        </form>
-                        
-                        <div class="col-lg-6" >
-                            <div class="form-group input-group">
-                                <input type="text" class="form-control">
-                                <span class="input-group-btn"><button class="btn btn-default" type="button"><i class="fa fa-search"></i></button></span>
-                            </div>
-                        </div>
-                        -->
                     </div>
-                </div>
-                <!-- /.row -->
-                <div>
+                    </div>
                     <div>
-                    
                         <div class="table-responsive">
                             <table class="table table-hover table-striped">
                                 <thead>
@@ -379,26 +319,82 @@ echo "$cus_name";
                                         <th>Contact Name</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <?php
-                                    $result = mysqli_query($con,"SELECT * FROM cuscontact WHERE cus_no='$cus_no'");
-                                    $num=1;
-                                    while($row = mysqli_fetch_array($result))
-                                        {
-                                        //echo "<tr data-href='customerdetail.php?cus_no=" . $row['cus_no'] . "'>";
-                                        echo "<tr>";
-                                        echo "<td>" . $num . "</td>";
-                                        echo "<td>" . $row['cuscontact_name'] . "</td>";
-                                        echo "</tr>";
-                                        $num++;
-                                        }
-                                    ?>
-                                    
-                                </tbody>
-                            </table>
+                                    <tbody>
+                                        
+                                        <?php
+                                        include "inc/dbcon.php";
+                                        $result = mysqli_query($con,"SELECT * FROM cuscontact WHERE cus_no='$cus_no'");
+                                        $num=1;
+                                        while($row = mysqli_fetch_array($result))
+                                            {
+                                            echo "<tr>";
+                                            echo "<td>" . $num . "</td>";
+                                            echo "<td>" . $row['cuscontact_name'] . "</td>";
+                                            echo "</tr>";
+                                            $num++;
+                                            }
+                                        mysqli_close($con);    
+                                        ?>
+                                        
+                                    </tbody>
+                                </table>
                         </div>
                     </div>
-                                </div>
+                <!-- /.row -->
+                    <div class="row">
+                    <div class="col-lg-12" >
+                        <form action="inv_add1.php">
+                            <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
+                            <button class="btn btn-primary">Invoice</button>
+                        </form>
+
+                    </div>
+                    </div>
+                    <div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Invoice</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                    <tbody>
+                                        
+                                        <?php
+                                        include "inc/dbcon.php";
+                                        $result = mysqli_query($con,"SELECT * FROM invoice WHERE cus_no='$cus_no'");
+                                        $num=1;
+                                        while($row = mysqli_fetch_array($result))
+                                            {
+                                            echo "<tr>";
+                                            echo "<td>" . $num . "</td>";
+                                            echo "<td>" . $row['inv_name'] . "</td>";
+                                            echo "<td>" . $row['inv_date'] . "</td>";
+                                            echo "</tr>";
+                                            $num++;
+                                            }
+                                        mysqli_close($con);    
+                                        ?>
+                                        
+                                    </tbody>
+                                </table>
+                        </div>
+                    </div>
+                <!-- /.row -->
+                    <div class="row">
+                    <div class="col-lg-12" >
+                        <form action="customer_edit1.php">
+                            <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
+                            <button class="btn btn-primary">Customer Edit</button>
+                        </form>
+
+                    </div>
+                    </div>
+                <!-- /.row -->
+                                    
+            </div>
             <!-- /.container-fluid -->
 
         </div>

@@ -9,17 +9,19 @@
 */
 include "inc/dbcon.php";
 
-	$cus_id = $_POST['cus_id'];
-	$cus_name = $_POST['cus_name'];
-	$cus_tname = $_POST['cus_tname'];
-	$cus_addr = $_POST['cus_addr'];
-	$cus_code = $_POST['cus_code'];
+    $inv_name = $_POST['inv_name'];
+	$fcl20f = $_POST['fcl20f'];
+	$fcl20n = $_POST['fcl20n'];
+	$fcl40f = $_POST['fcl40f'];
+	$fcl40n = $_POST['fcl40n'];
+	$lcl1 = $_POST['lcl1'];
+	$lcl2 = $_POST['lcl2'];
+	$cus_no = $_POST['cus_no'];
 	
-	//echo '$cus_name';
+$d = strtotime("now");
+$e = date("Y-m-d", $d);
 	
-	
-	//$sql = "insert into users (username, password) values ('$username','$pass')";
-	$sql = "insert into customer (cus_no, cus_id, cus_name, cus_tname, cus_addr, cus_code) values ('','$cus_id','$cus_name','$cus_tname','$cus_addr','$cus_code')";
+	$sql = "insert into invoice (inv_no, inv_name, fcl20f, fcl20n, fcl40f, fcl40n, lcl1, lcl2, inv_date, cus_no) values ('','$inv_name','$fcl20f','$fcl20n','$fcl40f','$fcl40n','$lcl1','$lcl2','$e','$cus_no')";
 	
 	if(mysqli_query($con, $sql)){
 //		echo 'success';
@@ -33,7 +35,7 @@ include "inc/dbcon.php";
 }
 else
 {
-	//echo "<script>alert('Error! Cannot save data');</script>";
+	echo "<script>alert('Error! Cannot save data');</script>";
 	//echo '<script>window.top.window.showResult("2");</script>';
 }
 mysql_close($mysqli_query);

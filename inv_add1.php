@@ -206,23 +206,48 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Customer
-                            <small>add</small>
+                            Invoice
+                            <small>
+<?php
+//print_r($_GET);
+
+//include "navcus.php";
+//include "topcus.php";
+//echo $cus_no;
+
+include "inc/dbcon.php";
+
+$cus_no = $_GET['cus_no'];
+$sql="SELECT * FROM customer WHERE cus_no='$cus_no'";
+//$sql="SELECT * FROM customer";
+$result = mysqli_query($con,$sql);
+$row = mysqli_fetch_array($result);
+$cus_name = $row['cus_name'];
+
+//                                        echo "<tr>";
+//                                        echo "<td>" . $num . "</td>";
+//                                       echo $row['cus_name'];
+//                                        echo "<td>" . $row['cus_addr'] . "</td>";
+//                                        echo "<td>" . $row['cus_code'] . "</td>";
+//                                        echo "</tr>";
+echo "$cus_name";
+
+//include "bot.php";
+?>   
+                            </small>
                         </h1>
                         <ol class="breadcrumb">
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="dashboard.html">Dashboard</a>
                             </li>
                             <li class="active">
-                                <i class="fa fa-file"></i> Customer
+                                <i class="fa fa-file"></i> <a href="customer.php">Customer</a>
                             </li>
                         </ol>
                     </div>
                 </div>
                 <!-- /.row -->
-                <div class="col-lg-6">
-                    <!-- <form action="customer_add2.php" method="post"> -->
-                    <form action="customer_add2.php" name="frmMain" method="post" target="iframe_target">
+                <form action="inv_add2.php" name="frmMain" method="post" target="iframe_target">
                         	<iframe id="iframe_target" name="iframe_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
                         	<script language="JavaScript">
                         		function showResult(result)
@@ -237,46 +262,93 @@
                         			}
                         		}
                         	</script>
-                        
+                        	
+                <div class="row">
+                    <div class="col-lg-12">
                         <div class="form-group">
-                             <label>Customer Name</label>
-                             <input class="form-control" placeholder="Enter text" id="cus_name" name="cus_name">
-                        </div>
-                        
-                        <div class="form-group">
-                             <label>Customer Thai Name</label>
-                             <input class="form-control" placeholder="Enter text" id="cus_tname" name="cus_tname">
-                        </div>
+                                <label>Invoice No.</label>
+                                <input class="form-control" placeholder="Enter text" id="inv_name" name="inv_name">
+                            </div>
+                        <h3>CHEMICALS Container SEA FREIGHT</h3>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Packing type</th>
+                                        <th>Unit</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>FCL 20 feet First Container</td>
+                                        <td>Baht/Container</td>
+                                        <td>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
+                                                <input type="text" class="form-control" placeholder="Enter Number"  id="fcl20f" name="fcl20f">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>FCL 20 feet Next Container</td>
+                                        <td>Baht/Container</td>
 
-                        <div class="form-group">
-                             <label>Tax ID</label>
-                             <input class="form-control" placeholder="Enter text" id="cus_id" name="cus_id">
+                                        <td>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
+                                                <input type="text" class="form-control" placeholder="Enter Number"  id="fcl20n" name="fcl20n">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>FCL 40 feet First Container</td>
+                                        <td>Baht/Container</td>
+                                        <td>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
+                                                <input type="text" class="form-control" placeholder="Enter Number"  id="fcl40f" name="fcl40f">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>FCL 40 feet Next Container</td>
+                                        <td>Baht/Container</td>
+                                        <td>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
+                                                <input type="text" class="form-control" placeholder="Enter Number"  id="fcl40n" name="fcl40n">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>LCL < 10,000 KG.</td>
+                                        <td>Baht/Shipment</td>
+                                        <td>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
+                                                <input type="text" class="form-control" placeholder="Enter Number"  id="lcl1" name="lcl1">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>> 10,000 KG.</td>
+                                        <td>Baht/KG.</td>
+                                        <td>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
+                                                <input type="text" class="form-control" placeholder="Enter Number"  id="lcl2" name="lcl2">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        
-                        <div class="form-group">
-                             <label>Address</label>
-                             <textarea class="form-control" rows="3" id="cus_addr" name="cus_addr"></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                             <label>Customer Code</label>
-                             <input class="form-control" placeholder="Enter text/Number" id="cus_code" name="cus_code">
-                        </div>
-                        
-                        <div class="form-group">
-                             <label>Tel.</label>
-                             <input class="form-control" placeholder="Enter Number">
-                        </div>
-                        <div class="form-group">
-                             <label>Fax.</label>
-                             <input class="form-control" placeholder="Enter Number">
-                        </div>
+                    </div>
+                
+                        <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
                         <input class="btn btn-default" type="submit" name="submit" value="save">
-                        <!-- 
-                            <button class="btn btn-default" id='insert'>Submit</button>
-                        	<p id='result'></p>
-                        	<script src='insert.js'></script>
-                         -->
+
                     </form>
                 </div>
             </div>
