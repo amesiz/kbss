@@ -280,7 +280,7 @@ mysqli_close($con);
                         </form>
                         </div>
                         <div class="col-lg-1" >
-                        <form action="cont_add1.php">
+                        <form action="tran_add1.php">
                             <input type="hidden" name="inv_no" value="<?php echo($inv_no); ?>" />
                             <button class="btn btn-success">Transport</button>
                         </form>
@@ -622,6 +622,57 @@ mysqli_close($con);
                     </div>
                     <?php endif; ?>
                     <?php mysqli_close($con); ?>
+                    
+                    <h3>ค่าบริการขนส่งพาหนะพิเศษ</h3>
+                    <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ชนิดของยานพาหนะ</th>
+                                        <th>หน่วยนับ</th>
+                                        <th>ค่าบริการ(บาท)</th>
+                                    </tr>
+                                </thead>
+                                    <tbody>
+                                        
+                                        <?php
+                                        include "inc/dbcon.php";
+                                        $result = mysqli_query($con,"SELECT * FROM tran1 WHERE inv_no='$inv_no'");
+                                        $num=1;
+                                        while($row = mysqli_fetch_array($result))
+                                            {
+                                            //echo "<tr data-href='invdetail.php?inv_no=" . $row['inv_no'] . "'>";
+                                            echo "<td>" . $row['tran1_name'] . "</td>";
+                                            /*
+                                            $order_type = $row['ordera_type'];
+                                            if ($order_type==1){
+                                                echo "<td>บาท/Shipment</td>";
+                                            } elseif ($order_type==2){
+                                                echo "<td>บาท/รายการ</td>";
+                                            } elseif ($order_type==3){
+                                                echo "<td>บาท/คำร้อง</td>";
+                                            } elseif ($order_type==4){
+                                                echo "<td>บาท/ชั่วโมง</td>";
+                                            } elseif ($order_type==5){
+                                                echo "<td>บาท/สถานที่</td>";
+                                            } elseif ($order_type==6){
+                                                echo "<td>บาท/Container</td>";
+                                            } elseif ($order_type==7){
+                                                echo "<td>บาท/Shipment/ตู้</td>";
+                                            }
+                                            */
+                                            //echo "<td>" . $row['ordera_type'] . "</td>";
+                                            echo "<td>บาท/เที่ยว</td>";
+                                            echo "<td>" . $row['tran1'] . "</td>";
+                                            echo "</tr>";
+                                            $num++;
+                                            }
+                                        mysqli_close($con);    
+                                        ?>
+                                        
+                                    </tbody>
+                                </table>
+                        </div>
             <!-- /.container-fluid -->
 
         </div>
