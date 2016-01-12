@@ -248,7 +248,7 @@ echo "<a href='invdetail.php?inv_no=$inv_no'>$inv_name</a>";
                     </div>
                 </div>
                 <!-- /.row -->
-                <form action="cont_add2.php" name="frmMain" method="post" target="iframe_target">
+                <form action="orderb_add2.php" name="frmMain" method="post" target="iframe_target">
                      
                         	<iframe id="iframe_target" name="iframe_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
                         	<script language="JavaScript">
@@ -264,89 +264,51 @@ echo "<a href='invdetail.php?inv_no=$inv_no'>$inv_name</a>";
                         			}
                         		}
                         	</script>
-                        	
+                        	<!--
                         	<div class="form-group">
-                                <label>Customs formality</label>
+                                <label>งานบริการดำเนินการพิธีการศุลกากร</label>
                                 <select class="form-control" id="ship" name="ship">
-                                    <option value="1">IMPORT</option>
-                                    <option value="2">EXPORT</option>
+                                    <option value="1">นำเข้า</option>
+                                    <option value="2">ส่งออก</option>
                                 </select>
                             </div>
-                            
+                            -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="form-group">
-                                <label>Unit Name</label>
-                                <input class="form-control" placeholder="Enter text" id="cont_name" name="cont_name">
-                            </div>
+
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Packing type</th>
-                                        <th>Unit</th>
-                                        <th>Price</th>
+                                        <th>รายการบริการพิเศษ</th>
+                                        <th>หน่วยนับ</th>
+                                        <th>ค่าบริการ(บาท)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>FCL 20 ฟุต ตู้แรก</td>
-                                        <td>Baht/Container</td>
+                                        <td>
+                                            <div class="form-group">
+                                                <!-- <label>บริการ</label> -->
+                                                <input class="form-control" placeholder="Enter text" id="o2_name" name="o2_name">
+                                            </div>
+                                        </td>
+                                        </td>
+                                        <td>บาท/Shipment</td>
                                         <td>
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon"><i class="fa fa-btc"></i></span>
-                                                <input type="text" class="form-control" placeholder="Enter Number"  id="fcl20f" name="fcl20f">
+                                                <input type="text" class="form-control" placeholder="Enter Number" id="o1" name="o1">
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>FCL 20 ฟุต ตู้ถัดไป</td>
-                                        <td>Baht/Container</td>
-
+                                        <td></td>
+                                        <td>ร้อยละของยอดคืนอากร</td>
                                         <td>
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon"><i class="fa fa-btc"></i></span>
-                                                <input type="text" class="form-control" placeholder="Enter Number"  id="fcl20n" name="fcl20n">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>FCL 40 ฟุต ตู้แรก</td>
-                                        <td>Baht/Container</td>
-                                        <td>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
-                                                <input type="text" class="form-control" placeholder="Enter Number"  id="fcl40f" name="fcl40f">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>FCL 40 ฟุต ตู้ถัดไป</td>
-                                        <td>Baht/Container</td>
-                                        <td>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
-                                                <input type="text" class="form-control" placeholder="Enter Number"  id="fcl40n" name="fcl40n">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>LCL < 10,000 KG.</td>
-                                        <td>Baht/Shipment</td>
-                                        <td>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
-                                                <input type="text" class="form-control" placeholder="Enter Number"  id="lcl1" name="lcl1">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>> 10,000 KG.</td>
-                                        <td>Baht/KG.</td>
-                                        <td>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
-                                                <input type="text" class="form-control" placeholder="Enter Number"  id="lcl2" name="lcl2">
+                                                <input type="text" class="form-control" placeholder="Enter Number"  id="o2" name="o2">
                                             </div>
                                         </td>
                                     </tr>

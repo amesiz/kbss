@@ -249,40 +249,47 @@ mysqli_close($con);
                 </div>
                         	
                <div class="col-lg-12" >
-                   <div class="col-lg-2" >
+                   <div class="col-lg-1" >
                         <form action="cont_add1.php">
                             <input type="hidden" name="inv_no" value="<?php echo($inv_no); ?>" />
                             <button class="btn btn-primary">Container</button>
                         </form>
                         </div>
-                        <div class="col-lg-2" >
-                        <form action="cont_add1.php">
+                        <div class="col-lg-1" >
+                        <form action="min_add1.php">
                             <input type="hidden" name="inv_no" value="<?php echo($inv_no); ?>" />
                             <button class="btn btn-success">Minimum</button>
                         </form>
                         </div>
-                        <div class="col-lg-2" >
-                        <form action="cont_add1.php">
+                        <div class="col-lg-1" >
+                        <form action="pership_add1.php">
                             <input type="hidden" name="inv_no" value="<?php echo($inv_no); ?>" />
-                            <button class="btn btn-warning">Per Shipment</button>
+                            <button class="btn btn-warning">Shipment</button>
                         </form>
                         </div>
                         <div class="col-lg-2" >
-                        <form action="cont_add1.php">
+                        <form action="order_add1.php">
                             <input type="hidden" name="inv_no" value="<?php echo($inv_no); ?>" />
-                            <button class="btn btn-danger">รายการ/คำร้อง/ตู้(x-ray)</button>
+                            <button class="btn btn-danger">รายการพิเศษ</button>
                         </form>
                         </div>
-                         <div class="col-lg-2" >
+                        <div class="col-lg-2" >
+                        <form action="orderb_add1.php">
+                            <input type="hidden" name="inv_no" value="<?php echo($inv_no); ?>" />
+                            <button class="btn btn-warning">รายการพิเศษ %</button>
+                        </form>
+                        </div>
+                        <div class="col-lg-1" >
                         <form action="cont_add1.php">
                             <input type="hidden" name="inv_no" value="<?php echo($inv_no); ?>" />
-                            <button class="btn btn-info">พิเศษ</button>
+                            <button class="btn btn-success">Transport</button>
                         </form>
                         </div>
 
                     </div>
                 </div>
                 <!-- /.row -->
+                
                 <?php  if ($ii==0): ?>
                     <div>
                         <?php
@@ -321,33 +328,33 @@ mysqli_close($con);
                                     <tr>
                                         <th>Packing type</th>
                                         <th>Unit</th>
-                                        <th>Price</th>
+                                        <th>Price(Baht)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>FCL 20 feet First Container</td>
+                                        <td>FCL 20 ฟุต ตู้แรก</td>
                                         <td>Baht/Container</td>
                                         <td>
                                         <?php echo($fcl20f); ?>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>FCL 20 feet Next Container</td>
+                                        <td>FCL 20 ฟุต ตู้ถัดไป</td>
                                         <td>Baht/Container</td>
                                         <td>
                                         <?php echo($fcl20n); ?>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>FCL 40 feet First Container</td>
+                                        <td>FCL 40 ฟุต ตู้แรก</td>
                                         <td>Baht/Container</td>
                                         <td>
                                         <?php echo($fcl40f); ?>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>FCL 40 feet Next Container</td>
+                                        <td>FCL 40 ฟุต ตู้ถัดไป</td>
                                         <td>Baht/Container</td>
                                         <td>
                                         <?php echo($fcl40n); ?>
@@ -375,7 +382,180 @@ mysqli_close($con);
                         ?>
                     </div>
                     <?php endif; ?>
+                    <?php mysqli_close($con); ?>
                     <!-- /.row -->
+                    <?php  if ($ii==0): ?>
+                    <div>
+                        <?php
+                        
+                                    include "inc/dbcon.php";
+                                    $result = mysqli_query($con,"SELECT * FROM minimum WHERE inv_no='$inv_no'");
+                                    //$row = mysqli_fetch_array($result);
+                                    while($row = mysqli_fetch_array($result)){
+                                    $min_name = $row['min_name'];
+                                    $min1 = $row['min1'];
+                                    $min2 = $row['min2'];
+                                    $ship = $row['ship'];
+                                    
+                                    if($ship==1){
+                                        $ss = "IMPORT";
+                                    } else {
+                                        $ss = "EXPORT";
+                                    }
+                                    
+                        ?>
+                        <h3><?php echo($ss); ?></h3>
+                        <smail>
+                        <?php
+                                    
+                                    echo "$min_name";
+                                    //mysqli_close($con);
+                        ?>
+                        </smail>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Packing type</th>
+                                        <th>Unit</th>
+                                        <th>Price(Baht)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>MINIMUM</td>
+                                        <td>Baht/Shipment</td>
+                                        <td>
+                                        <?php echo($min1); ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>CBM or TON</td>
+                                        <td>Baht/CBM or TON</td>
+                                        <td>
+                                        <?php echo($min2); ?>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <?php
+                                    }
+                        ?>
+                    </div>
+                    <?php endif; ?>
+                    <?php mysqli_close($con); ?>
+                    
+                    <!-- /.row -->
+                    <?php  if ($ii==0): ?>
+                    <div>
+                        <?php
+                        
+                                    include "inc/dbcon.php";
+                                    $result = mysqli_query($con,"SELECT * FROM pership WHERE inv_no='$inv_no'");
+                                    //$row = mysqli_fetch_array($result);
+                                    while($row = mysqli_fetch_array($result)){
+                                    $pership_name = $row['pership_name'];
+                                    $pership1 = $row['pership1'];
+                                    $pership2 = $row['pership2'];
+                                    $ship = $row['ship'];
+                                    
+                                    if($ship==1){
+                                        $ss = "IMPORT";
+                                    } else {
+                                        $ss = "EXPORT";
+                                    }
+                                    
+                        ?>
+                        <h3><?php echo($ss); ?></h3>
+                        <smail>
+                        <?php
+                                    
+                                    echo "$pership_name";
+                                    //mysqli_close($con);
+                        ?>
+                        </smail>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Packing type</th>
+                                        <th>Unit</th>
+                                        <th>Price(Baht)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><= 1,000 ก.ก.</td>
+                                        <td>Baht/Shipment</td>
+                                        <td>
+                                        <?php echo($pership1); ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>> 1,000 ก.ก.</td>
+                                        <td>Baht/KG.</td>
+                                        <td>
+                                        <?php echo($pership2); ?>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <?php
+                                    }
+                        ?>
+                    </div>
+                    <?php endif; ?>
+                    <?php mysqli_close($con); ?>
+                    
+                    <h3>ค่าบริการพิเศษต่างๆ</h3>
+                    <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>รายการบริการพิเศษ</th>
+                                        <th>หน่วยนับ</th>
+                                        <th>ค่าบริการ(บาท)</th>
+                                    </tr>
+                                </thead>
+                                    <tbody>
+                                        
+                                        <?php
+                                        include "inc/dbcon.php";
+                                        $result = mysqli_query($con,"SELECT * FROM ordera WHERE inv_no='$inv_no'");
+                                        $num=1;
+                                        while($row = mysqli_fetch_array($result))
+                                            {
+                                            //echo "<tr data-href='invdetail.php?inv_no=" . $row['inv_no'] . "'>";
+                                            echo "<td>" . $row['ordera_name'] . "</td>";
+                                            $order_type = $row['ordera_type'];
+                                            if ($order_type==1){
+                                                echo "<td>บาท/Shipment</td>";
+                                            } elseif ($order_type==2){
+                                                echo "<td>บาท/รายการ</td>";
+                                            } elseif ($order_type==3){
+                                                echo "<td>บาท/คำร้อง</td>";
+                                            } elseif ($order_type==4){
+                                                echo "<td>บาท/ชั่วโมง</td>";
+                                            } elseif ($order_type==5){
+                                                echo "<td>บาท/สถานที่</td>";
+                                            } elseif ($order_type==6){
+                                                echo "<td>บาท/Container</td>";
+                                            } elseif ($order_type==7){
+                                                echo "<td>บาท/Shipment/ตู้</td>";
+                                            }
+                                            //echo "<td>" . $row['ordera_type'] . "</td>";
+                                            echo "<td>" . $row['ordera1'] . "</td>";
+                                            echo "</tr>";
+                                            $num++;
+                                            }
+                                        mysqli_close($con);    
+                                        ?>
+                                        
+                                    </tbody>
+                                </table>
+                        </div>
             <!-- /.container-fluid -->
 
         </div>
