@@ -249,7 +249,7 @@ mysqli_close($con);
                 </div>
                         	
                <div class="col-lg-12" >
-                   <div class="col-lg-1" >
+                       <div class="col-lg-1" >
                         <form action="cont_add1.php">
                             <input type="hidden" name="inv_no" value="<?php echo($inv_no); ?>" />
                             <button class="btn btn-primary">Container</button>
@@ -267,16 +267,16 @@ mysqli_close($con);
                             <button class="btn btn-warning">Shipment</button>
                         </form>
                         </div>
-                        <div class="col-lg-2" >
+                        <div class="col-lg-1" >
                         <form action="order_add1.php">
                             <input type="hidden" name="inv_no" value="<?php echo($inv_no); ?>" />
-                            <button class="btn btn-danger">รายการพิเศษ</button>
+                            <button class="btn btn-danger">พิเศษ</button>
                         </form>
                         </div>
-                        <div class="col-lg-2" >
+                        <div class="col-lg-1" >
                         <form action="orderb_add1.php">
                             <input type="hidden" name="inv_no" value="<?php echo($inv_no); ?>" />
-                            <button class="btn btn-warning">รายการพิเศษ %</button>
+                            <button class="btn btn-info">พิเศษ%</button>
                         </form>
                         </div>
                         <div class="col-lg-1" >
@@ -285,9 +285,14 @@ mysqli_close($con);
                             <button class="btn btn-success">Transport</button>
                         </form>
                         </div>
-
-                    </div>
+                        <div class="col-lg-1" >
+                        <form action="invpdf1.php">
+                            <input type="hidden" name="inv_no" value="<?php echo($inv_no); ?>" />
+                            <button class="btn btn-default">PDF</button>
+                        </form>
+                        </div>
                 </div>
+                <br>
                 <!-- /.row -->
                 
                 <?php  if ($ii==0): ?>
@@ -527,6 +532,7 @@ mysqli_close($con);
                                         $num=1;
                                         while($row = mysqli_fetch_array($result))
                                             {
+                                            echo "<tr>";
                                             //echo "<tr data-href='invdetail.php?inv_no=" . $row['inv_no'] . "'>";
                                             echo "<td>" . $row['ordera_name'] . "</td>";
                                             $order_type = $row['ordera_type'];
@@ -641,6 +647,7 @@ mysqli_close($con);
                                         $num=1;
                                         while($row = mysqli_fetch_array($result))
                                             {
+                                            echo "<tr>";
                                             //echo "<tr data-href='invdetail.php?inv_no=" . $row['inv_no'] . "'>";
                                             echo "<td>" . $row['tran1_name'] . "</td>";
                                             /*
