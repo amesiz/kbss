@@ -29,7 +29,7 @@ include "inc/dbcon.php";
 //$d = strtotime("now");
 //$e = date("Y-m-d", $d);
 	
-	$sql = "insert into o2 (o2_no, o2_name, o1, o2, inv_no) values ('','$o2_name','$o1,'$o2','$inv_no')";
+	$sql = "insert into o2 (o2_no, o2_name, o1, o2, inv_no) values ('','$o2_name','$o1','$o2','$inv_no')";
 //	$sql = "insert into invoice (inv_no, inv_name, inv_date, cus_no) values ('','$inv_name','$e','$cus_no')";
 	if(mysqli_query($con, $sql)){
 //		echo 'success';

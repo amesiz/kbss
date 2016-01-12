@@ -556,6 +556,72 @@ mysqli_close($con);
                                     </tbody>
                                 </table>
                         </div>
+                        
+                        <?php  if ($ii==0): ?>
+                    <div>
+                        <?php
+                        
+                                    include "inc/dbcon.php";
+                                    $result = mysqli_query($con,"SELECT * FROM o2 WHERE inv_no='$inv_no'");
+                                    //$row = mysqli_fetch_array($result);
+                                    while($row = mysqli_fetch_array($result)){
+                                    $o2_name = $row['o2_name'];
+                                    $o1 = $row['o1'];
+                                    $o2 = $row['o2'];
+                                    //$ship = $row['ship'];
+                                    /*
+                                    if($ship==1){
+                                        $ss = "IMPORT";
+                                    } else {
+                                        $ss = "EXPORT";
+                                    }
+                                    */
+                                    
+                        ?>
+                        <!--
+                        <h3><?php //echo($ss); ?></h3>
+                        
+                        <smail>
+                        <?php
+                                    
+                                    //echo "$pership_name";
+                                    //mysqli_close($con);
+                        ?>
+                        </smail>
+                        -->
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>รายการบริการพิเศษ</th>
+                                        <th>หน่วยนับ</th>
+                                        <th>ค่าบริการ(บาท)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><?php echo($o2_name); ?></td>
+                                        <td>บาท/Shipment</td>
+                                        <td>
+                                        <?php echo($o1); ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>ร้อยละของยอดคืนอากร</td>
+                                        <td>
+                                        <?php echo($o2); ?>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <?php
+                                    }
+                        ?>
+                    </div>
+                    <?php endif; ?>
+                    <?php mysqli_close($con); ?>
             <!-- /.container-fluid -->
 
         </div>
