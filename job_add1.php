@@ -1,9 +1,3 @@
-<?php
-include "inc/dbcon.php";
-
-$result = mysqli_query($con,"SELECT * FROM jobs");
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,33 +9,28 @@ $result = mysqli_query($con,"SELECT * FROM jobs");
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Jobs</title>
+    <title>SB Admin - Bootstrap Admin Template</title>
+    
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
+    
     <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
-
+    
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+    
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-    $("button").click(function(){
-        $.ajax({url: "job_add.php", success: function(result){
-            $("#div1").html(result);
-        }});
-    });
-});
-</script>
+        
+    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+
 </head>
 
 <body>
@@ -221,140 +210,129 @@ $(document).ready(function(){
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Jobs
-                            <small>Management</small>
+                            Job no.
+                            <small>
+                                <?php
+                                //print_r($_GET);
+                                
+                                //include "navcus.php";
+                                //include "topcus.php";
+                                //echo $cus_no;
+                                
+                                include "inc/dbcon.php";
+                                
+                                //$cus_no = $_GET['cus_no'];
+                                //$sql="SELECT MAX(job_no) FROM job";
+                                $sql="SELECT MAX(job_no) AS job_no FROM job";
+                                //$sql="SELECT * FROM customer";
+                                $result = mysqli_query($con,$sql);
+                                $row = mysqli_fetch_array($result);
+                                $job_no = $row['job_no'];
+                                //$inv_no = $row['inv_no'];
+                                //$cus_no = $row['cus_no'];
+                                
+                                //echo($row['cus_no']);
+                                //echo($job_no);
+                                $job_name = $job_no+1;
+                                
+                                
+                                printf("J%05d",$job_name);
+
+                                
+                                //include "bot.php";
+                                mysqli_close($con)
+                                ?>   
+                            </small>
                         </h1>
                         <ol class="breadcrumb">
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="dashboard.html">Dashboard</a>
                             </li>
                             <li class="active">
-                                <i class="fa fa-file"></i> Jobs
+                                <i class="fa fa-file"></i> <a href="jobs.php">Jobs</a>
                             </li>
                         </ol>
-                        <div class="col-lg-6">
-                        <form role="form">
-                        <div class="form-group">
-                                <label>Selects Filter</label>
-                                <select class="form-control">
-                                    <option>ALL</option>
-                                    <option>Import</option>
-                                    <option>Export</option>
-                                    <option>Privilege</option>
-                                    <option>Other</option>
-                                    <option>Transport</option>
-                                </select>
-                        </div>
-                        </form>
-                        </div>
-                        <div class="col-lg-6">
-                        <form role="form">
-                        <div class="form-group">
-                                <label>Selects Filter</label>
-                                <select class="form-control">
-                                    <option>ALL</option>
-                                    <option>Sea</option>
-                                    <option>Air</option>
-                                    <option>Land</option>
-                                    <option>Dummy</option>
-                                    <option>Dummy</option>
-                                </select>
-                        </div>
-                        </form>
-                        </div>
-                        <div class="col-lg-6" >
-                        <!--
-                        <div id="div1">
-                        -->
-                        <button type="button" class="btn btn-lg btn-primary" onclick="location.href='job_add1.php'">New JOBs</button>
-                        <!--
-                        <button type="button" class="btn btn-lg btn-primary" onclick="location.href='import_add1.php'">New Import</button>
-                        <button type="button" class="btn btn-lg btn-success" onclick="location.href='export_add1.php'">New Export</button>
-                        <button type="button" class="btn btn-lg btn-info" onclick="location.href='transport_add1.php'">New Transport</button>
-                        <button type="button" class="btn btn-lg btn-warning" onclick="location.href='privilage_add1.php'">New Privilege</button>
-                        </div>
-                        -->
-                        </div>
-                        <!--
-                        <form action="newjobs.html">
-                        <button type="button" class="btn btn-lg btn-primary" onclick="location.href='newjobs.html'">New JOB</button>
-                        </form>
-                        -->
-                        
                     </div>
                 </div>
                 <!-- /.row -->
-            <div>
-                        <h3>Jobs List</h3>
-                        <!-- <div class="table-responsive"> -->
-                            <table class="table table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Date</th>
-                                        <th>Customer</th>
-                                        <th>Invoice</th>
-                                        <th>EDI</th>
-                                        <th>Loaded</th>
-                                        <th>ETD</th>
-                                        <th>ETA</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="active">
-                                        <td>1.</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                    </tr>
-                                    <tr class="success">
-                                        <td>2.</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                    </tr>
-                                    <tr class="warning">
-                                        <td>3.</td>
-                                        <<td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                    </tr>
-                                    <tr class="danger">
-                                        <td>4.</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5.</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <div class="col-lg-12">
+                    <!-- <form action="customer_add2.php" method="post"> -->
+                    <form action="job_add2.php" name="frmMain" method="post" target="iframe_target">
+                        	<iframe id="iframe_target" name="iframe_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
+                        	<script language="JavaScript">
+                        		function showResult(result)
+                        		{
+                        			if(result==1)
+                        			{
+                        				document.getElementById("divResult").innerHTML = "<font color=green> Save successfully! </font>  <br>";
+                        			}
+                        			else
+                        			{
+                        				document.getElementById("divResult").innerHTML = "<font color=red> Error!! Cannot save data </font> <br>";
+                        			}
+                        		}
+                        	</script>
+                        	
+                        <?php
+                        include "inc/dbcon.php";
+                        $result = mysqli_query($con,"SELECT * FROM customer");
+                        ?>
+                        <div class="col-lg-4">
+                        <div class="form-group">
+                            
+                             <label>Customer Code</label>
+                             <input class="form-control" placeholder="Enter text" list="cus_code" autocomplete="off" name="cus_code">
+                                 <datalist id="cus_code">
+                                    <?php while($row = mysqli_fetch_array($result)) { ?>
+                                    <option value="<?php echo $row['cus_code']; ?>"><?php echo $row['cus_name']; ?></option>
+                                    <?php } ?>
+                                </datalist>
+                            </div>
+                         </div>       
+                         <?php mysqli_close($con); ?>
+                         
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label>บริการ</label>
+                                <select class="form-control" id="job_ship" name="job_ship">
+                                    <option value="1">นำเข้า</option>
+                                    <option value="2">ส่งออก</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
+                        
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                             <label>วันที่</label>
+                             <input class="form-control" placeholder="Enter Date" name="job_sdate" id="datetimepicker"/>
+                            </div>
+                        </div>
+                          <script src="js/jquery1.js"></script>
+                          <script src="js/build/jquery.datetimepicker.full.js"></script>
+                          <script>
+                        $('#datetimepicker').datetimepicker({
+                          	//yearOffset:543,
+                          	//lang:'th',
+                          	timepicker:false,
+                          	format:'Y-m-d',
+                          	formatDate:'Y-m-d',
+                          	//inline:true
+                          	//minDate:'-1970/01/02', // yesterday is minimum date
+                          	//maxDate:'+1970/01/02' // and tommorow is maximum date calendar
+                          });
+                        </script>
+                        <!--
+                        <div class="form-group">
+                             <label>Fax.</label>
+                             <input class="form-control" placeholder="Enter Number">
+                        </div>
+                        -->
+                        <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
+                        <input type="hidden" name="cus_no" value="<?php echo($job_name); ?>" />
+                        <input class="btn btn-default" type="submit" name="submit" value="save">
+                        
+                    </form>
+                </div>
             </div>
             <!-- /.container-fluid -->
 

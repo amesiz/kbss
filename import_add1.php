@@ -309,14 +309,12 @@ $result = mysqli_query($con,"SELECT * FROM customer");
                         <div class="form-group">
                                                 
                                                 
-                                                        <label>Channel</label>
+                                                        <label>FREIGHT</label>
                                                         <select class="form-control">
                                                             <option>Select</option>
                                                             <option>Sea</option>
                                                             <option>Air</option>
                                                             <option>Land</option>
-                                                            <option>Dummy</option>
-                                                            <option>Dummy</option>
                                                         </select>
                                                 
                                                 

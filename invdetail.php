@@ -247,8 +247,9 @@ mysqli_close($con);
                         </ol>
                     </div>
                 </div>
-                        	
+                       	
                <div class="col-lg-12" >
+               
                        <div class="col-lg-1" >
                         <form action="cont_add1.php">
                             <input type="hidden" name="inv_no" value="<?php echo($inv_no); ?>" />
@@ -291,8 +292,11 @@ mysqli_close($con);
                             <button class="btn btn-default">PDF</button>
                         </form>
                         </div>
-                </div>
-                <br>
+                <!-- </div> -->
+                
+                <br/>
+                <br/>
+            
                 <!-- /.row -->
                 
                 <?php  if ($ii==0): ?>
@@ -680,6 +684,7 @@ mysqli_close($con);
                                     </tbody>
                                 </table>
                         </div>
+                    </div>
             <!-- /.container-fluid -->
 
         </div>
