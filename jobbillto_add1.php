@@ -1,9 +1,3 @@
-<?php
-include "inc/dbcon.php";
-
-$result = mysqli_query($con,"SELECT * FROM job");
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,22 +26,7 @@ $result = mysqli_query($con,"SELECT * FROM job");
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-    $("button").click(function(){
-        $.ajax({url: "customer_add.php", success: function(result){
-            $("#div1").html(result);
-        }});
-    });
-});
-$(document).ready(function(){
-    $('table tr').click(function(){
-        window.location = $(this).data('href');
-        return false;
-    });
-});
-</script>
+
 </head>
 
 <body>
@@ -227,187 +206,110 @@ $(document).ready(function(){
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Jobs
-                            <small>Management</small>
+                            Job No.
+                            <small>
+                            <?php
+                            include "inc/dbcon.php";
+                            
+                            $job_no = $_GET['job_no'];
+                            $sql="SELECT * FROM job WHERE job_no='$job_no'";
+                            //$sql="SELECT * FROM customer";
+                            $result = mysqli_query($con,$sql);
+                            $row = mysqli_fetch_array($result);
+                            $job_name = $row['job_name'];
+                            $job_ship = $row['job_ship'];
+                            //$cus_no = $row['cus_no'];
+                            $job_date = $row['job_date'];
+                            
+                                     //echo "</tr>";
+                            echo "<a href='jobdetail.php?job_no=$job_no'>J$job_name</a>";
+                            mysqli_close($con);
+                            //include "bot.php";
+                            ?> 
+                            </small>
                         </h1>
                         <ol class="breadcrumb">
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="dashboard.html">Dashboard</a>
                             </li>
                             <li class="active">
-                                <i class="fa fa-file"></i> Jobs
+                                <i class="fa fa-file"></i> <a href="jobs.php">Job</a>
                             </li>
                         </ol>
-                        <div class="col-lg-6">
-                        <form role="form">
-                        <div class="form-group">
-                                <label>Selects Filter</label>
-                                <select class="form-control">
-                                    <option>ALL</option>
-                                    <option>Import</option>
-                                    <option>Export</option>
-                                    <option>Privilege</option>
-                                    <option>Other</option>
-                                    <option>Transport</option>
-                                </select>
-                        </div>
-                        </form>
-                        </div>
-                        <div class="col-lg-6">
-                        <form role="form">
-                        <div class="form-group">
-                                <label>Selects Filter</label>
-                                <select class="form-control">
-                                    <option>ALL</option>
-                                    <option>Sea</option>
-                                    <option>Air</option>
-                                    <option>Land</option>
-                                    <option>Dummy</option>
-                                    <option>Dummy</option>
-                                </select>
-                        </div>
-                        </form>
-                        </div>
-                        <div class="col-lg-6" >
-                        <!--
-                        <div id="div1">
-                        -->
-                        <button type="button" class="btn btn-lg btn-primary" onclick="location.href='job_add1.php'">New JOBs</button>
-                        <!--
-                        <button type="button" class="btn btn-lg btn-primary" onclick="location.href='import_add1.php'">New Import</button>
-                        <button type="button" class="btn btn-lg btn-success" onclick="location.href='export_add1.php'">New Export</button>
-                        <button type="button" class="btn btn-lg btn-info" onclick="location.href='transport_add1.php'">New Transport</button>
-                        <button type="button" class="btn btn-lg btn-warning" onclick="location.href='privilage_add1.php'">New Privilege</button>
-                        </div>
-                        -->
-                        </div>
-                        <!--
-                        <form action="newjobs.html">
-                        <button type="button" class="btn btn-lg btn-primary" onclick="location.href='newjobs.html'">New JOB</button>
-                        </form>
-                        -->
-                        
                     </div>
                 </div>
                 <!-- /.row -->
-            <div>
-                        <h3>Jobs List</h3>
-                            <table class="table table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Job</th>
-                                        <th>วันที่</th>
-                                        <th>ลูกค้า</th>
-                                        <th>บริการ</th>
-                                        <th>สร้างวันที่</th>
-                                        <th>สิ้นสุดวันที่</th>
-                                        <th>สถานะ</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $num=1;
-                                    while($row = mysqli_fetch_array($result))
-                                        {
-                                        $job_status = $row['job_status'];
-                                        if($job_status==0){
-                                        $tr = "warning";
-                                        } else {
-                                            $tr = "success";
-                                        }
-                                        $job_no = $row['job_no'];
-                                        echo "<tr class='$tr' data-href='jobdetail.php?job_no=" . $row['job_no'] . "'>";
-                                        //echo "<td>" . $num . "</td>";
-                                        $job_name = $row['job_name'];
-                                        //echo "<td>" . $row['job_name'] . "</td>";
-                                        echo "<td>J$job_name</td>";
-                                        echo "<td>" . $row['job_sdate'] . "</td>";
-                                        $cus_no = $row['cus_no'];
-                                            $sql1="SELECT cus_name FROM customer WHERE cus_no='$cus_no'";
-                                            $result1 = mysqli_query($con,$sql1);
-                                            $row1 = mysqli_fetch_array($result1);
-                                            $cus_name = $row1['cus_name'];
-                                        echo "<td>$cus_name</td>";
-                                        //echo "<td>" . $row['cus_no'] . "</td>";
-                                        //echo "<td>" . $row['job_ship'] . "</td>";
-                                        $job_ship = $row['job_ship'];
-                                        if($job_ship==1){
-                                        $ss = "นำเข้า";
-                                        } else {
-                                            $ss = "ส่งออก";
-                                        }
-                                        echo "<td>$ss</td>";
-                                        echo "<td>" . $row['job_date'] . "</td>";
-                                        echo "<td>" . $row['job_edate'] . "</td>";
-                                        //echo "<td>" . $row['job_status'] . "</td>";
-                                        //$job_status = $row['job_status'];
-                                        if($job_status==0){
-                                        $js = "ยังไม่สิ้นสุด";
-                                        } else {
-                                            $js = "สิ้นสุด";
-                                        }
-                                        echo "<td>$js</td>";
-                                        echo "</tr>";
-                                        $num++;
-                                        }
-                                    ?>
-                                    <?php mysqli_close($con); ?>
-                                    <!--
-                                    <tr class="active">
-                                        <td>1.</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                    </tr>
-                                    <tr class="success">
-                                        <td>2.</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                    </tr>
-                                    <tr class="warning">
-                                        <td>3.</td>
-                                        <<td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                    </tr>
-                                    <tr class="danger">
-                                        <td>4.</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5.</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                        <td>xxxxx</td>
-                                    </tr>
-                                    -->
-                                </tbody>
-                            </table>
+                <div class="col-lg-6">
+                    <!-- <form action="customer_add2.php" method="post"> -->
+                    <form action="jobbillto_add2.php" name="frmMain" method="post" target="iframe_target">
+                        	<iframe id="iframe_target" name="iframe_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
+                        	<script language="JavaScript">
+                        		function showResult(result)
+                        		{
+                        			if(result==1)
+                        			{
+                        				document.getElementById("divResult").innerHTML = "<font color=green> Save successfully! </font>  <br>";
+                        			}
+                        			else
+                        			{
+                        				document.getElementById("divResult").innerHTML = "<font color=red> Error!! Cannot save data </font> <br>";
+                        			}
+                        		}
+                        	</script>
+                        <!--
+                        <div class="form-group">
+                             <label>Bill to Name</label>
+                             <input class="form-control" placeholder="Enter text" id="billto_name" name="billto_name">
                         </div>
-                    </div>
+                        -->
+                        <?php
+                        include "inc/dbcon.php";
+                        $cus_no = $_GET['cus_no'];
+                        $result = mysqli_query($con,"SELECT * FROM billto WHERE cus_no='$cus_no'");
+                        ?>
+                        <div class="form-group">
+                             <label>Bill to</label>
+                                <select class="form-control" id="billto_no" name="billto_no">
+                                    <?php while($row = mysqli_fetch_array($result)) { ?>
+                                    <option value="<?php echo $row['billto_no']; ?>"><?php echo $row['billto_name']; ?></option>
+                                    <?php } ?>
+                                </select>
+                                <?php mysqli_close($con); ?>
+                        </div>
+                        <!--
+                        <div class="form-group">
+                             <label>Tax ID</label>
+                             <input class="form-control" placeholder="Enter text" id="billto_id" name="billto_id">
+                        </div>
+                        
+                        <div class="form-group">
+                             <label>Address</label>
+                             <textarea class="form-control" rows="3" id="billto_addr" name="billto_addr"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                             <label>Bill to Code</label>
+                             <input class="form-control" placeholder="Enter text/Number" id="billto_code" name="billto_code">
+                        </div>
+                        
+                        <div class="form-group">
+                             <label>Tel.</label>
+                             <input class="form-control" placeholder="Enter Number">
+                        </div>
+                        <div class="form-group">
+                             <label>Fax.</label>
+                             <input class="form-control" placeholder="Enter Number">
+                        </div>
+                        -->
+                        <input type="hidden" name="job_no" value="<?php echo($job_no); ?>" />
+                        <input class="btn btn-default" type="submit" name="submit" value="save">
+                        <!-- 
+                            <button class="btn btn-default" id='insert'>Submit</button>
+                        	<p id='result'></p>
+                        	<script src='insert.js'></script>
+                         -->
+                    </form>
+                </div>
             </div>
             <!-- /.container-fluid -->
 

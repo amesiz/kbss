@@ -237,6 +237,7 @@
                                 
                                 
                                 printf("J%05d",$job_name);
+                                //echo " $job_name";
 
                                 
                                 //include "bot.php";
@@ -258,6 +259,7 @@
                 <div class="col-lg-12">
                     <!-- <form action="customer_add2.php" method="post"> -->
                     <form action="job_add2.php" name="frmMain" method="post" target="iframe_target">
+                        
                         	<iframe id="iframe_target" name="iframe_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
                         	<script language="JavaScript">
                         		function showResult(result)
@@ -327,8 +329,7 @@
                              <input class="form-control" placeholder="Enter Number">
                         </div>
                         -->
-                        <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
-                        <input type="hidden" name="cus_no" value="<?php echo($job_name); ?>" />
+                        <input type="hidden" name="job_name" value="<?php echo($job_name); ?>" />
                         <input class="btn btn-default" type="submit" name="submit" value="save">
                         
                     </form>

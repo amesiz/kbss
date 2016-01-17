@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>Job :-)</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -26,6 +26,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
 
 </head>
 
@@ -220,6 +221,11 @@
                             $job_ship = $row['job_ship'];
                             //$cus_no = $row['cus_no'];
                             $job_date = $row['job_date'];
+                            $billto_no = $row['billto_no'];
+                            $cuscontact_no = $row['cuscontact_no'];
+                            $user_no = $row['user_no'];
+                            $uship_no = $row['uship_no'];
+                            $inv_no = $row['inv_no'];
                             
                                      //echo "</tr>";
                             echo "<a href='jobdetail.php?job_no=$job_no'>J$job_name</a>";
@@ -239,7 +245,23 @@
                     </div>
                 </div>
                 <!-- /.row -->
-                        <form action"" method="post">
+                    <form action="import3_add2.php" name="frmMain" method="post" target="iframe_target">
+                        
+                        	<iframe id="iframe_target" name="iframe_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
+                        	<script language="JavaScript">
+                        		function showResult(result)
+                        		{
+                        			if(result==1)
+                        			{
+                        				document.getElementById("divResult").innerHTML = "<font color=green> Save successfully! </font>  <br>";
+                        			}
+                        			else
+                        			{
+                        				document.getElementById("divResult").innerHTML = "<font color=red> Error!! Cannot save data </font> <br>";
+                        			}
+                        		}
+                        	</script>
+                        
                         <div class="col-lg-1">
                         <div class="form-group">
                              <label>Date</label>
@@ -280,20 +302,50 @@
                         
                         <!-- Bill to -->
                         <div class="col-lg-3">
+                            <?php
+                            include "inc/dbcon.php";
+                            
+                            //$cus_no = $_GET['cus_no'];
+                            $sql="SELECT * FROM billto WHERE billto_no='$billto_no'";
+                            //$sql="SELECT * FROM customer";
+                            $result = mysqli_query($con,$sql);
+                            $row = mysqli_fetch_array($result);
+                            //$cus_code = $row['cus_code'];
+                            $billto_name = $row['billto_name'];
+                            $billto_addr = $row['billto_addr'];
+                            
+                            mysqli_close($con);
+                            
+                            ?>
                             <label>Bill to</label>
-                            <input class="form-control" id="disabledInput" type="text" placeholder="" disabled>
+                            <input class="form-control" id="disabledInput" type="text" placeholder="<?php echo($billto_name) ?>" disabled>
                         </div>
                         <div class="col-lg-6">
                         <div class="form-group">
                              <label>Bill to Address</label>
-                             <input class="form-control" placeholder="" id="cus_id" name="cus_id" disabled>
+                             <input class="form-control" placeholder="<?php echo($billto_addr) ?>" id="cus_id" name="cus_id" disabled>
                         </div>
                         </div>
                         
                         <div class="col-lg-4">
+                            <?php
+                            include "inc/dbcon.php";
+                            
+                            //$cus_no = $_GET['cus_no'];
+                            $sql="SELECT * FROM cuscontact WHERE cuscontact_no='$cuscontact_no'";
+                            //$sql="SELECT * FROM customer";
+                            $result = mysqli_query($con,$sql);
+                            $row = mysqli_fetch_array($result);
+                            //$cus_code = $row['cus_code'];
+                            $cuscontact_name = $row['cuscontact_name'];
+                            //billto_addr = $row['billto_addr'];
+                            
+                            mysqli_close($con);
+                            
+                            ?>
                         <div class="form-group">
                              <label>Contact Name</label>
-                             <input class="form-control" placeholder="" list="cuscontact_no" autocomplete="off" name="cuscontact_no" disabled>
+                             <input class="form-control" list="cuscontact_no" placeholder="<?php echo($cuscontact_name) ?>" name="cuscontact_no" disabled>
                         </div>
                         </div>
                         <!--
@@ -310,7 +362,7 @@
                                                         </select>
                         </div>
                         </div>
-                        -->
+                        
                         <div class="col-lg-4">
                         <div class="form-group">
                                                 
@@ -318,206 +370,292 @@
                                                         <label>FREIGHT</label>
                                                         <select class="form-control" id="freight" name="freight">
                                                             <option>Select</option>
-                                                            <option>Sea</option>
-                                                            <option>Air</option>
-                                                            <option>Land</option>
+                                                            <option value="1">Sea</option>
+                                                            <option value="2">Air</option>
+                                                            <option value="3">Land</option>
                                                         </select>
                                                 
                                                 
                         </div>
                         </div>
+                        -->
+                        <div class="col-lg-4">
+                            <?php
+                            include "inc/dbcon.php";
+                            
+                            //$cus_no = $_GET['cus_no'];
+                            $sql="SELECT * FROM invoice WHERE inv_no='$inv_no'";
+                            //$sql="SELECT * FROM customer";
+                            $result = mysqli_query($con,$sql);
+                            $row = mysqli_fetch_array($result);
+                            //$cus_code = $row['cus_code'];
+                            $inv_name = $row['inv_name'];
+                            //billto_addr = $row['billto_addr'];
+                            
+                            mysqli_close($con);
+                            
+                            ?>
+                        <div class="form-group">
+                             <label>Invoice</label>
+                             <input class="form-control" placeholder="<?php echo($inv_name) ?>" id="inv_no" name="inv_no" disabled>
+                        </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <?php
+                            include "inc/dbcon.php";
+                            
+                            //$cus_no = $_GET['cus_no'];
+                            $sql="SELECT * FROM user WHERE user_no='$user_no'";
+                            //$sql="SELECT * FROM customer";
+                            $result = mysqli_query($con,$sql);
+                            $row = mysqli_fetch_array($result);
+                            //$cus_code = $row['cus_code'];
+                            $user_name = $row['user_name'];
+                            //billto_addr = $row['billto_addr'];
+                            
+                            mysqli_close($con);
+                            
+                            ?>
+                        <div class="form-group">
+                             <label>CS</label>
+                             <input class="form-control" placeholder="<?php echo($user_name) ?>" id="inv_no" name="inv_no" disabled>
+                        </div>
+                        </div>
                         
                         <div class="col-lg-4">
                         <div class="form-group">
-                             <label>Customer Invoice</label>
-                             <input class="form-control" placeholder="" id="inv_no" name="inv_no" disabled>
-                        </div>
-                        </div>
-                        <div class="col-lg-4">
-                        <div class="form-group">
-                             <label>CS</label>
-                             <input class="form-control" placeholder="" id="inv_no" name="inv_no" disabled>
-                        </div>
-                        </div>
-                        <div class="col-lg-4">
-                        <div class="form-group">
                              <label>ITEM</label>
-                             <input class="form-control" placeholder="Enter Text/Number">
+                             <input class="form-control" placeholder="Enter Text" name="item">
                         </div>
                         </div>
+                        
                         <div class="col-lg-4">
                         <div class="form-group">
                              <label>Amount</label>
-                             <input class="form-control" placeholder="Enter Number">
+                             <input class="form-control" placeholder="Enter Number" name="amount">
                         </div>
                         </div>
                         <div class="col-lg-4">
                         <div class="form-group">
                              <label>Total Weigth</label>
-                             <input class="form-control" placeholder="Enter Number">
+                             <input class="form-control" placeholder="Enter Number" name="tweight">
                         </div>
                         </div>
                         <div class="col-lg-4">
                         <div class="form-group">
                              <label>Measurement(M3)</label>
-                             <input class="form-control" placeholder="Enter Number">
+                             <input class="form-control" placeholder="Enter Number" name="m3">
                         </div>
                         </div>
                         <div class="col-lg-4">
                         <div class="form-group">
                              <label>Chargeable Weight</label>
-                             <input class="form-control" placeholder="Enter Number">
+                             <input class="form-control" placeholder="Enter Number" name="cweight">
                         </div>
                         </div>
                         <div class="col-lg-4">
                         <div class="form-group">
                              <label>Net Weight</label>
-                             <input class="form-control" placeholder="Enter Number">
+                             <input class="form-control" placeholder="Enter Number" name="nweight">
                         </div>
                         </div>
                         <div class="col-lg-4">
                         <div class="form-group">
+                             <label>Containers</label>
+                             <input class="form-control" placeholder="Enter Number" name="containers">
+                        </div>
+                        </div>
+                         <div class="col-lg-4">
+                        <div class="form-group">
+                                <label></label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="cycfs" id="optionsRadiosInline1" value="1" checked>CY
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="cycfs" id="optionsRadiosInline2" value="2">CFS
+                                </label>
+                            </div>
+                        </div>
+                        <!--
+                        <div class="col-lg-4">
+                        <div class="form-group">
                              <label>H B/L</label>
-                             <input class="form-control" placeholder="Enter Text">
+                             <input class="form-control" placeholder="Enter Text" name="hbl">
                         </div>
                         </div>
                         <div class="col-lg-4">
                         <div class="form-group">
                              <label>M B/L</label>
-                             <input class="form-control" placeholder="Enter Text">
+                             <input class="form-control" placeholder="Enter Text" name="mbl">
                         </div>
                         </div>
                          <div class="col-lg-4">
                         <div class="form-group">
                              <label>B/L Status</label>
-                             <input class="form-control" placeholder="Enter Text">
+                             <input class="form-control" placeholder="Enter Text" name="blstatus">
                         </div>
                         </div>
                          <div class="col-lg-4">
                         <div class="form-group">
-                             <label>Agent/Forwarder</label>
-                             <input class="form-control" placeholder="Enter Text">
+                             <label>Agent</label>
+                             <input class="form-control" placeholder="Enter Text"  name="imp1_agent">
                         </div>
                         </div>
                          <div class="col-lg-4">
                         <div class="form-group">
                              <label>Vessel Name</label>
-                             <input class="form-control" placeholder="Enter Text">
+                             <input class="form-control" placeholder="Enter Text" name="vessel_name">
                         </div>
                         </div>
                         <div class="col-lg-4">
                         <div class="form-group">
                              <label>Master Vessel Name</label>
-                             <input class="form-control" placeholder="Enter Text">
+                             <input class="form-control" placeholder="Enter Text" name="mvessel_name">
                         </div>
                         </div>
                         <div class="col-lg-2">
                         <div class="form-group">
-                             <label>ETA</label>
-                             <input class="form-control" placeholder="Enter Text">
+                             <label>ETD/ETA</label>
+                             <input class="form-control" name="eta" placeholder="Enter Date" id="datetimepicker"/>
                         </div>
                         </div>
+                        <script src="js/jquery1.js"></script>
+                        <script src="js/build/jquery.datetimepicker.full.js"></script>
+                        <script>
+                        $('#datetimepicker').datetimepicker({
+                          	//yearOffset:543,
+                          	//lang:'th',
+                          	timepicker:false,
+                          	format:'Y-m-d',
+                          	formatDate:'Y-m-d',
+                          	//inline:true
+                          	//minDate:'-1970/01/02', // yesterday is minimum date
+                          	//maxDate:'+1970/01/02' // and tommorow is maximum date calendar
+                          });
+                        </script>
                         <div class="col-lg-2">
                         <div class="form-group">
                              <label>CY</label>
-                             <input class="form-control" placeholder="Enter Text">
+                             <input class="form-control" name="cy" placeholder="Enter Date" id="datetimepicker2"/>
                         </div>
                         </div>
+                        <script>
+                        $('#datetimepicker2').datetimepicker({
+                          	timepicker:false,
+                          	format:'Y-m-d',
+                          	formatDate:'Y-m-d',
+                          });
+                        </script>
                         <div class="col-lg-2">
                         <div class="form-group">
                              <label>Delivery</label>
-                             <input class="form-control" placeholder="Enter Text">
+                             <input class="form-control" name="delivery" placeholder="Enter Date" id="datetimepicker3" >
                         </div>
                         </div>
+                        <script>
+                        $('#datetimepicker3').datetimepicker({
+                          	timepicker:false,
+                          	format:'Y-m-d',
+                          	formatDate:'Y-m-d',
+                          });
+                        </script>
                         <div class="col-lg-2">
                         <div class="form-group">
                              <label>Return</label>
-                             <input class="form-control" placeholder="Enter Text">
+                             <input class="form-control" name="return" placeholder="Enter Date" id="datetimepicker4" >
                         </div>
                         </div>
+                        <script>
+                        $('#datetimepicker4').datetimepicker({
+                          	timepicker:false,
+                          	format:'Y-m-d',
+                          	formatDate:'Y-m-d',
+                          });
+                        </script>
                         <div class="col-lg-4">
                         <div class="form-group">
-                             <label>Number of Containers</label>
-                             <input class="form-control" placeholder="Enter Text">
+                             <label>ปลายทาง/ต้นทาง</label>
+                             <input class="form-control" placeholder="Enter Text" name="imp1_dest">
                         </div>
-                        </div>
-                        <div class="col-lg-4">
-                        <div class="form-group">
-                             <label>Destination Port</label>
-                             <input class="form-control" placeholder="Enter Text">
-                        </div>
-                        </div>
-                        <div class="col-lg-4">
-                        <div class="form-group">
-                                <label></label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked>CY
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="option2">CFS
-                                </label>
-                            </div>
                         </div>
                         <div class="col-lg-2">
                         <div class="form-group">
                              <label>EDI Date</label>
-                             <input class="form-control" placeholder="Enter Text">
+                             <input class="form-control" name="edi" placeholder="Enter Date" id="datetimepicker5">
                         </div>
                         </div>
+                        <script>
+                        $('#datetimepicker5').datetimepicker({
+                          	timepicker:false,
+                          	format:'Y-m-d',
+                          	formatDate:'Y-m-d',
+                          });
+                        </script>
                         <div class="col-lg-2">
                         <div class="form-group">
                              <label>Date Release</label>
-                             <input class="form-control" placeholder="Enter Text">
+                             <input class="form-control" name="dr" placeholder="Enter Date" id="datetimepicker6">
                         </div>
                         </div>
-                        <div class="col-lg-4">
-                        <div class="form-group">
-                             <label>Destination Port</label>
-                             <input class="form-control" placeholder="Enter Text">
-                        </div>
-                        </div>
+                        <script>
+                        $('#datetimepicker6').datetimepicker({
+                          	timepicker:false,
+                          	format:'Y-m-d',
+                          	formatDate:'Y-m-d',
+                          });
+                        </script>
                         <div class="col-lg-4">
                         <div class="form-group">
                              <label>Bill Type</label>
-                             <input class="form-control" placeholder="Enter Text">
+                             <input class="form-control" placeholder="Enter Text" name="billt">
                         </div>
                         </div>
                         <div class="col-lg-4">
                         <div class="form-group">
                              <label>Bill No.</label>
-                             <input class="form-control" placeholder="Enter Text">
+                             <input class="form-control" placeholder="Enter Text" name="billn">
                         </div>
                         </div>
-                        <div class="col-lg-4">
-                        <div class="form-group">
-                             <label>Shipping</label>
-                             <input class="form-control" placeholder="Enter Text">
-                        </div>
-                        </div>
+                        
                         <div class="col-lg-4">
                         <div class="form-group">
                              <label>Customs</label>
-                             <input class="form-control" placeholder="Enter Text">
+                             <input class="form-control" placeholder="" disabled>
                         </div>
                         </div>
-                         <div class="col-lg-4">
+                        
+                        <div class="col-lg-4">
                         <div class="form-group">
-                             <label>Port#</label>
-                             <input class="form-control" placeholder="Enter Text" disabled>
+                             <label>สถานที่ส่งสินค้า</label>
+                             <input class="form-control" placeholder="Enter Text" name="locat">
                         </div>
                         </div>
+                        <div class="col-lg-4">
+                        <div class="form-group">
+                             <label>ท่าที่นำเข้า</label>
+                             <input class="form-control" placeholder="Enter Text" name="port">
+                        </div>
+                        </div>
+                        -->
+                        
                         <div class="col-lg-4">
                         <div class="form-group">
                              <label>Remark</label>
-                             <textarea class="form-control" rows="3" id="cus_addr" name="cus_addr"></textarea>
+                             <textarea class="form-control" rows="3" id="imp2_remark" name="imp2_remark"></textarea>
                         </div>
                         </div>
-                        <div class="col-lg-4">
-                        <button type="submit" class="btn btn-lg btn-warning">Save!</button>
-                        </div>
+
+                    <div class="row">
+                    <div class="col-lg-12" >
+
+                        <input type="hidden" name="job_no" value="<?php echo($job_no); ?>" />
+                        <input class="btn btn-lg btn-warning" type="submit" name="submit" value="save">
                         </form>
+
+                    </div>
+                    </div>
                         
-            
+
             </div>
             <!-- /.container-fluid -->
 

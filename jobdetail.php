@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Customer :-)</title>
+    <title>Jobs :-)</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -170,10 +170,10 @@ $(document).ready(function(){
                     <li>
                         <a href="dashboard.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="jobs.php"><i class="fa fa-arrow-circle-right"></i> Jobs</a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="customer.php"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Customer</a>
                     </li>
                     <li>
@@ -221,7 +221,7 @@ $(document).ready(function(){
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Customer
+                            Job No.
                             <small>
                             <?php
                             //print_r($_GET);
@@ -232,15 +232,23 @@ $(document).ready(function(){
                             
                             include "inc/dbcon.php";
                             
-                            $cus_no = $_GET['cus_no'];
-                            $sql="SELECT * FROM customer WHERE cus_no='$cus_no'";
+                            $job_no = $_GET['job_no'];
+                            $sql="SELECT * FROM job WHERE job_no='$job_no'";
                             //$sql="SELECT * FROM customer";
                             $result = mysqli_query($con,$sql);
                             $row = mysqli_fetch_array($result);
-                            $cus_name = $row['cus_name'];
+                            $job_name = $row['job_name'];
+                            $job_ship = $row['job_ship'];
+                            $cus_no = $row['cus_no'];
+                            $billto_no = $row['billto_no'];
+                            $cuscontact_no = $row['cuscontact_no'];
+                            $inv_no = $row['inv_no'];
+                            $user_no = $row['user_no'];
+                            $uship_no = $row['uship_no'];
+                            
                             
                                      //echo "</tr>";
-                            echo "$cus_name";
+                            echo "J$job_name";
                             mysqli_close($con);
                             //include "bot.php";
                             ?>   
@@ -252,41 +260,42 @@ $(document).ready(function(){
                                 <i class="fa fa-dashboard"></i>  <a href="dashboard.html">Dashboard</a>
                             </li>
                             <li class="active">
-                                <i class="fa fa-file"></i> <a href="customer.php">Customer</a>
+                                <i class="fa fa-file"></i> <a href="jobs.php">Jobs</a>
                             </li>
                         </ol>
                         
                 </div>
-                    <div class="col-lg-12" >
-                        <form action="billto_add1.php">
-                            <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
-                            <button class="btn btn-primary">Bill to</button>
-                        </form>
 
-                    </div>
                 </div>
+                
+                
+                <form action="jobbillto_add1.php">
+                            <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
+                            <input type="hidden" name="job_no" value="<?php echo($job_no); ?>" />
+                            <button class="btn btn-primary">Bill to</button>
+                </form>
                 <!-- /.row -->
                     <div>
                         <div class="table-responsive">
                             <table class="table table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Customer</th>
-                                        <th>Address</th>
-                                        <th>Tax ID.</th>
+                                        <th>ชื่อ</th>
+                                        <th>ที่อยู่</th>
+                                        <th>หมายเลขผู้เสียภาษี</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     include "inc/dbcon.php";
-                                    $result = mysqli_query($con,"SELECT * FROM billto WHERE cus_no='$cus_no'");
+
+                                    $result = mysqli_query($con,"SELECT * FROM billto WHERE billto_no='$billto_no'");
                                     $num=1;
                                     while($row = mysqli_fetch_array($result))
                                         {
                                         //echo "<tr data-href='customerdetail.php?cus_no=" . $row['cus_no'] . "'>";
                                         echo "<tr>";
-                                        echo "<td>" . $num . "</td>";
+                                        //echo "<td>" . $num . "</td>";
                                         echo "<td>" . $row['billto_name'] . "</td>";
                                         echo "<td>" . $row['billto_addr'] . "</td>";
                                         echo "<td>" . $row['billto_id'] . "</td>";
@@ -303,9 +312,10 @@ $(document).ready(function(){
                     <!-- /.row -->
                     <div class="row">
                     <div class="col-lg-12" >
-                        <form action="cuscontact_add1.php">
+                        <form action="jobcuscontact_add1.php">
                             <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
-                            <button class="btn btn-primary">Contact Name</button>
+                            <input type="hidden" name="job_no" value="<?php echo($job_no); ?>" />
+                            <button class="btn btn-primary">ผู้ติดต่อ</button>
                         </form>
 
                     </div>
@@ -315,20 +325,22 @@ $(document).ready(function(){
                             <table class="table table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Contact Name</th>
+                                        
+                                        <th>ผู้ติดต่อ</th>
+                                        <th>Tel.</th>
+                                        <th>Fax.</th>
                                     </tr>
                                 </thead>
                                     <tbody>
                                         
                                         <?php
                                         include "inc/dbcon.php";
-                                        $result = mysqli_query($con,"SELECT * FROM cuscontact WHERE cus_no='$cus_no'");
+                                        $result = mysqli_query($con,"SELECT * FROM cuscontact WHERE cuscontact_no='$cuscontact_no'");
                                         $num=1;
                                         while($row = mysqli_fetch_array($result))
                                             {
                                             echo "<tr>";
-                                            echo "<td>" . $num . "</td>";
+                                            //echo "<td>" . $num . "</td>";
                                             echo "<td>" . $row['cuscontact_name'] . "</td>";
                                             echo "</tr>";
                                             $num++;
@@ -343,9 +355,10 @@ $(document).ready(function(){
                 <!-- /.row -->
                     <div class="row">
                     <div class="col-lg-12" >
-                        <form action="inv_add1.php">
+                        <form action="jobinv_add1.php">
                             <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
-                            <button class="btn btn-primary">Invoice</button>
+                            <input type="hidden" name="job_no" value="<?php echo($job_no); ?>" />
+                            <button class="btn btn-primary">Customer Invoice</button>
                         </form>
 
                     </div>
@@ -355,7 +368,7 @@ $(document).ready(function(){
                             <table class="table table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        
                                         <th>Invoice</th>
                                         <th>Date</th>
                                     </tr>
@@ -364,12 +377,12 @@ $(document).ready(function(){
                                         
                                         <?php
                                         include "inc/dbcon.php";
-                                        $result = mysqli_query($con,"SELECT * FROM invoice WHERE cus_no='$cus_no'");
+                                        $result = mysqli_query($con,"SELECT * FROM invoice WHERE inv_no='$inv_no'");
                                         $num=1;
                                         while($row = mysqli_fetch_array($result))
                                             {
-                                            echo "<tr data-href='invdetail.php?inv_no=" . $row['inv_no'] . "'>";
-                                            echo "<td>" . $num . "</td>";
+                                            echo "<tr>";
+                                            //echo "<td>" . $num . "</td>";
                                             echo "<td>" . $row['inv_name'] . "</td>";
                                             echo "<td>" . $row['inv_date'] . "</td>";
                                             echo "</tr>";
@@ -385,13 +398,251 @@ $(document).ready(function(){
                 <!-- /.row -->
                     <div class="row">
                     <div class="col-lg-12" >
-                        <form action="customer_edit1.php">
+                        <form action="jobuser_add1.php">
                             <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
+                            <input type="hidden" name="job_no" value="<?php echo($job_no); ?>" />
+                            <button class="btn btn-primary">CS</button>
+                        </form>
+
+                    </div>
+                    </div>
+                    <div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        
+                                        <th>CS Name</th>
+                                        <th>Tel.</th>
+                                        <th>Fax.</th>
+                                    </tr>
+                                </thead>
+                                    <tbody>
+                                        
+                                        <?php
+                                        include "inc/dbcon.php";
+                                        $result = mysqli_query($con,"SELECT * FROM user WHERE user_no='$user_no'");
+                                        $num=1;
+                                        while($row = mysqli_fetch_array($result))
+                                            {
+                                            echo "<tr>";
+                                            //echo "<td>" . $num . "</td>";
+                                            echo "<td>" . $row['user_name'] . "</td>";
+                                            //echo "<td>" . $row['inv_date'] . "</td>";
+                                            echo "</tr>";
+                                            $num++;
+                                            }
+                                        mysqli_close($con);    
+                                        ?>
+                                        
+                                    </tbody>
+                                </table>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                    <div class="row">
+                    <div class="col-lg-12" >
+                        <form action="jobuship_add1.php">
+                            <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
+                            <input type="hidden" name="job_no" value="<?php echo($job_no); ?>" />
+                            <button class="btn btn-primary">Shipping</button>
+                        </form>
+
+                    </div>
+                    </div>
+                    <div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        
+                                        <th>Shipping Name</th>
+                                        <th>Tel.</th>
+                                        <th>Fax.</th>
+                                    </tr>
+                                </thead>
+                                    <tbody>
+                                        
+                                        <?php
+                                        include "inc/dbcon.php";
+                                        $result = mysqli_query($con,"SELECT * FROM uship WHERE uship_no='$uship_no'");
+                                        $num=1;
+                                        while($row = mysqli_fetch_array($result))
+                                            {
+                                            echo "<tr>";
+                                            //echo "<td>" . $num . "</td>";
+                                            echo "<td>" . $row['uship_name'] . "</td>";
+                                            //echo "<td>" . $row['inv_date'] . "</td>";
+                                            echo "</tr>";
+                                            $num++;
+                                            }
+                                        mysqli_close($con);    
+                                        ?>
+                                        
+                                    </tbody>
+                                </table>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                    <div class="row">
+                    <div class="col-lg-12" >
+                    <?php
+                    if ($job_ship==1){
+                        echo "<form action='import1_add1.php'>";
+                        echo "    <input type='hidden' name='job_no' value='$job_no' />";
+                        echo "    <input type='hidden' name='cus_no' value='$cus_no' />";
+                        echo "    <button class='btn btn-primary'>ข้อมูล</button>";
+                        echo "</form>";
+                    } else {
+                        echo "<form action='export1_add1.php'>";
+                        echo "    <input type='hidden' name='job_no' value='$job_no' />";
+                        echo "    <input type='hidden' name='cus_no' value='$cus_no' />";
+                        echo "    <button class='btn btn-info'>ข้อมูล</button>";
+                        echo "</form>";
+                    }
+                    ?>
+                    </div>
+                    </div>
+                    <div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Agent</th>
+                                        <th>ปลายทาง/ต้นทาง</th>
+                                        <th>Vessel</th>
+                                        <th>ETD/ETA</th>
+                                        <th>BL No.</th>
+                                        <th>ท่าที่นำเข้า</th>
+                                        <th>สถานที่ส่งสินค้า</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    include "inc/dbcon.php";
+
+                                    $result = mysqli_query($con,"SELECT * FROM imp1 WHERE job_no='$job_no'");
+                                    $num=1;
+                                    while($row = mysqli_fetch_array($result))
+                                        {
+                                        //echo "<tr data-href='customerdetail.php?cus_no=" . $row['cus_no'] . "'>";
+                                        echo "<tr>";
+                                        //echo "<td>" . $num . "</td>";
+                                        echo "<td>" . $row['imp1_agent'] . "</td>";
+                                        echo "<td>" . $row['imp1_dest'] . "</td>";
+                                        echo "<td>" . $row['vessel_name'] . "</td>";
+                                        echo "<td>" . $row['eta'] . "</td>";
+                                        echo "<td>" . $row['billn'] . "</td>";
+                                        echo "<td>" . $row['port'] . "</td>";
+                                        echo "<td>" . $row['locat'] . "</td>";
+                                        echo "</tr>";
+                                        $num++;
+                                        }
+                                    mysqli_close($con);
+                                    ?>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                    <br>
+                    <div class="row">
+                    <div class="col-lg-12" >
+                    <?php
+                    if ($job_ship==1){
+                        echo "<form action='import3_add1.php'>";
+                        //echo "    <input type='hidden' name='inv_no' value='$inv_no' />";
+                        echo "    <input type='hidden' name='job_no' value='$job_no' />";
+                        echo "    <input type='hidden' name='cus_no' value='$cus_no' />";
+                        echo "    <button class='btn btn-primary'>ITEM</button>";
+                        echo "</form>";
+                    } else {
+                        echo "<form action='export3_add1.php'>";
+                        //echo "    <input type='hidden' name='jinv_no' value='$inv_no' />";
+                        echo "    <input type='hidden' name='job_no' value='$job_no' />";
+                        echo "    <input type='hidden' name='cus_no' value='$cus_no' />";
+                        echo "    <button class='btn btn-info'>ITEM</button>";
+                        echo "</form>";
+                    }
+                    ?>
+                    </div>
+                    </div>
+                    <div>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>รายละเอียดสินค้า</th>
+                                        <th>นน.สุทธิ(ก.ก.)</th>
+                                        <th>หีบห่อ</th>
+                                        <th>นน.รวม(ก.ก.)</th>
+                                        <th>หมายเหตุ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    include "inc/dbcon.php";
+
+                                    $result = mysqli_query($con,"SELECT * FROM imp2 WHERE job_no='$job_no'");
+                                    $num=1;
+                                    while($row = mysqli_fetch_array($result))
+                                        {
+                                        //echo "<tr data-href='customerdetail.php?cus_no=" . $row['cus_no'] . "'>";
+                                        echo "<tr>";
+                                        echo "<td>" . $num . "</td>";
+                                        echo "<td>" . $row['item'] . "</td>";
+                                        echo "<td>" . $row['nweight'] . "</td>";
+                                        echo "<td>" . $row['amount'] . "</td>";
+                                        echo "<td>" . $row['tweight'] . "</td>";
+                                        echo "<td>" . $row['imp2_remark'] . "</td>";
+                                        echo "</tr>";
+                                        $num++;
+                                        }
+                                    mysqli_close($con);
+                                    ?>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                     <!-- /.row -->
+                     <br>
+                    <div class="row">
+                    <div class="col-lg-12" >
+                    <?php
+                    if ($job_ship==1){
+                        echo "<form action='import_itemdetail.php'>";
+                        //echo "    <input type='hidden' name='inv_no' value='$inv_no' />";
+                        echo "    <input type='hidden' name='job_no' value='$job_no' />";
+                        echo "    <input type='hidden' name='cus_no' value='$cus_no' />";
+                        echo "    <button class='btn btn-primary'>Invoice</button>";
+                        echo "</form>";
+                    } else {
+                        echo "<form action='export_itemdetail.php'>";
+                        //echo "    <input type='hidden' name='jinv_no' value='$inv_no' />";
+                        echo "    <input type='hidden' name='job_no' value='$job_no' />";
+                        echo "    <input type='hidden' name='cus_no' value='$cus_no' />";
+                        echo "    <button class='btn btn-info'>Invoice</button>";
+                        echo "</form>";
+                    }
+                    ?>
+                    </div>
+                    </div>
+                <!-- /.row -->
+                <br>
+                <!--
+                    <div class="row">
+                    <div class="col-lg-12" >
+                        <form action="customer_edit1.php">
+                            <input type="hidden" name="cus_no" value="<?php //echo($cus_no); ?>" />
                             <button class="btn btn-primary">Customer Edit</button>
                         </form>
 
                     </div>
                     </div>
+                    -->
                 <!-- /.row -->
                                     
             </div>
