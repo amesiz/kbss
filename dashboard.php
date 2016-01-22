@@ -153,7 +153,7 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
-                        <a href="dashboard.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="dashboard.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
                         <a href="jobs.php"><i class="fa fa-arrow-circle-right"></i> Jobs</a>
@@ -162,7 +162,19 @@
                         <a href="customer.php"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Customer</a>
                     </li>
                     <li>
-                        <a href="customer.php"><span class="glyphicon glyphicon-bitcoin"></span> เงินเบิก</a>
+                        <a href="drawdetail.php"><span class="glyphicon glyphicon-bitcoin"></span> เงินเบิก</a>
+                    </li>
+                    <li>
+                        <a href="drawdetail.php"><span class="glyphicon glyphicon-usd"></span></span> ค่าใช้จ่าย</a>
+                    </li>
+                    <li>
+                        <a href="customer.php"><span class="glyphicon glyphicon-road"></span> Transport</a>
+                    </li>
+                    <li>
+                        <a href="customer.php"><span class="glyphicon glyphicon-earphone"></span> Customer Service</a>
+                    </li>
+                    <li>
+                        <a href="customer.php"><span class="glyphicon glyphicon-briefcase"></span> Shipping</a>
                     </li>
                     <li>
                         <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>

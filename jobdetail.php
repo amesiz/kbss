@@ -27,21 +27,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-    $("button").click(function(){
-        $.ajax({url: "customer_add.php", success: function(result){
-            $("#div1").html(result);
-        }});
-    });
-});
-$(document).ready(function(){
-    $('table tr').click(function(){
-        window.location = $(this).data('href');
-        return false;
-    });
-});
-</script>
+
 </head>
 
 <body>
@@ -58,7 +44,7 @@ $(document).ready(function(){
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="dashboard.html">KB Shipping Service</a>
+                <a class="navbar-brand" href="dashboard.php">KB Shipping Service</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -168,7 +154,7 @@ $(document).ready(function(){
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li>
-                        <a href="dashboard.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="dashboard.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li class="active">
                         <a href="jobs.php"><i class="fa fa-arrow-circle-right"></i> Jobs</a>
@@ -257,7 +243,7 @@ $(document).ready(function(){
                         </h1>
                         <ol class="breadcrumb">
                             <li>
-                                <i class="fa fa-dashboard"></i>  <a href="dashboard.html">Dashboard</a>
+                                <i class="fa fa-dashboard"></i>  <a href="dashboard.php">Dashboard</a>
                             </li>
                             <li class="active">
                                 <i class="fa fa-file"></i> <a href="jobs.php">Jobs</a>
@@ -288,13 +274,16 @@ $(document).ready(function(){
                                 <tbody>
                                     <?php
                                     include "inc/dbcon.php";
+                                    
 
                                     $result = mysqli_query($con,"SELECT * FROM billto WHERE billto_no='$billto_no'");
                                     $num=1;
                                     while($row = mysqli_fetch_array($result))
                                         {
+                                            
                                         //echo "<tr data-href='customerdetail.php?cus_no=" . $row['cus_no'] . "'>";
                                         echo "<tr>";
+                                        //echo "<tr data-href='jobdetail.php?job_no=" . $job_no . "'>";
                                         //echo "<td>" . $num . "</td>";
                                         echo "<td>" . $row['billto_name'] . "</td>";
                                         echo "<td>" . $row['billto_addr'] . "</td>";
@@ -339,7 +328,8 @@ $(document).ready(function(){
                                         $num=1;
                                         while($row = mysqli_fetch_array($result))
                                             {
-                                            echo "<tr>";
+                                            //echo "<tr>";
+                                            echo "<tr data-href='jobdetail.php?job_no=" . $job_no . "'>";
                                             //echo "<td>" . $num . "</td>";
                                             echo "<td>" . $row['cuscontact_name'] . "</td>";
                                             echo "</tr>";
@@ -382,6 +372,7 @@ $(document).ready(function(){
                                         while($row = mysqli_fetch_array($result))
                                             {
                                             echo "<tr>";
+                                            //echo "<tr data-href='jobdetail.php?job_no=" . $job_no . "'>";
                                             //echo "<td>" . $num . "</td>";
                                             echo "<td>" . $row['inv_name'] . "</td>";
                                             echo "<td>" . $row['inv_date'] . "</td>";
@@ -425,6 +416,7 @@ $(document).ready(function(){
                                         $num=1;
                                         while($row = mysqli_fetch_array($result))
                                             {
+                                            //echo "<tr data-href='jobdetail.php?job_no=" . $job_no . "'>";
                                             echo "<tr>";
                                             //echo "<td>" . $num . "</td>";
                                             echo "<td>" . $row['user_name'] . "</td>";
@@ -469,6 +461,7 @@ $(document).ready(function(){
                                         $num=1;
                                         while($row = mysqli_fetch_array($result))
                                             {
+                                            //echo "<tr data-href='jobdetail.php?job_no=" . $job_no . "'>";
                                             echo "<tr>";
                                             //echo "<td>" . $num . "</td>";
                                             echo "<td>" . $row['uship_name'] . "</td>";
@@ -525,7 +518,7 @@ $(document).ready(function(){
                                     $num=1;
                                     while($row = mysqli_fetch_array($result))
                                         {
-                                        //echo "<tr data-href='customerdetail.php?cus_no=" . $row['cus_no'] . "'>";
+                                        //echo "<tr data-href='jobdetail.php?job_no=" . $job_no . "'>";
                                         echo "<tr>";
                                         //echo "<td>" . $num . "</td>";
                                         echo "<td>" . $row['imp1_agent'] . "</td>";
@@ -589,7 +582,7 @@ $(document).ready(function(){
                                     $num=1;
                                     while($row = mysqli_fetch_array($result))
                                         {
-                                        //echo "<tr data-href='customerdetail.php?cus_no=" . $row['cus_no'] . "'>";
+                                        //echo "<tr data-href='jobdetail.php?job_no=" . $job_no . "'>";
                                         echo "<tr>";
                                         echo "<td>" . $num . "</td>";
                                         echo "<td>" . $row['item'] . "</td>";
@@ -597,6 +590,117 @@ $(document).ready(function(){
                                         echo "<td>" . $row['amount'] . "</td>";
                                         echo "<td>" . $row['tweight'] . "</td>";
                                         echo "<td>" . $row['imp2_remark'] . "</td>";
+                                        echo "</tr>";
+                                        $num++;
+                                        }
+                                    mysqli_close($con);
+                                    ?>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                    <div class="row">
+                    <div class="col-lg-2" >
+                        <form action="jobpdf.php">
+                            <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
+                            <input type="hidden" name="job_no" value="<?php echo($job_no); ?>" />
+                            <button class="btn btn-primary">ใบปฏิบัติงานจัดส่งสินค้า(PDF)</button>
+                        </form>
+                    </div>
+                    <div class="col-lg-2" >
+                        <form action="jobpdf1.php">
+                            <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
+                            <input type="hidden" name="job_no" value="<?php echo($job_no); ?>" />
+                            <button class="btn btn-primary">ใบปฏิบัติงานจัดส่งสินค้า</button>
+                        </form>
+
+                    </div>
+                    </div>
+                    <br>
+                    <!-- /.row -->
+                    <div class="row">
+                    <div class="col-lg-12" >
+                        <form action="jobinv_add1.php">
+                            <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
+                            <input type="hidden" name="job_no" value="<?php echo($job_no); ?>" />
+                            <button class="btn btn-primary">ค่าใช้จ่าย</button>
+                        </form>
+
+                    </div>
+                    </div>
+                    <br>
+                    <!-- /.row -->
+                    <div class="row">
+                    <div class="col-lg-12" >
+                        <form action="draw1_add1.php">
+                            <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
+                            <input type="hidden" name="job_no" value="<?php echo($job_no); ?>" />
+                            <button class="btn btn-primary">เบิกเงิน</button>
+                        </form>
+
+                    </div>
+                    </div>
+                    <div>
+                    <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>รายการ</th>
+                                        <th>เบิกจำนวน(บาท)</th>
+                                        <th>ค้างจำนวน(บาท)</th>
+                                        <th>สถานะ</th>
+                                        <th>เคลียร์</th>
+                                        <th>ลบ</th>
+                                        <th>หมายเหตุ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    include "inc/dbcon.php";
+
+                                    $result = mysqli_query($con,"SELECT * FROM draw1 WHERE job_no='$job_no'");
+                                    $num=1;
+                                    while($row = mysqli_fetch_array($result))
+                                        {
+                                        $draw1_no = $row['draw1_no'];
+                                        $draw1_status = $row['draw1_status'];
+                                        //echo "<tr data-href='jobdetail.php?job_no=" . $job_no . "'>";
+                                        echo "<tr>";
+                                        echo "<td>" . $num . "</td>";
+                                        echo "<td>" . $row['draw1_name'] . "</td>";
+                                        echo "<td>" . $row['draw2'] . "</td>";
+                                        echo "<td>" . $row['draw1'] . "</td>";
+                                        //echo "<td>" . $row['draw1_status'] . "</td>";
+                                        if($draw1_status==0){
+                                            $ss = "รออนุมัติ";
+                                            echo "<td>$ss</td>";
+                                            echo "<td></td>";
+                                        } elseif($draw1_status==1) {
+                                            $ss = "ยังไม่ได้เคลียร์";
+                                            echo "<td>$ss</td>";
+                                        echo "<td>
+                                            <form action='draw1_edit1.php'>
+                                            <input type='hidden' name='job_no' value='$job_no' />
+                                            <input type='hidden' name='draw1_no' value='$draw1_no' />
+                                            <button class='btn btn-sm btn-primary'>เคลียร์</button>
+                                            </form>
+                                            </td>";
+                                        } else {
+                                             $ss = "เคลียร์แล้ว";
+                                             echo "<td>$ss</td>";
+                                             echo "<td></td>";
+                                        }
+
+                                        echo "<td>
+                                        <form action='draw1_del.php'>
+                                        <input type='hidden' name='job_no' value='$job_no' />
+                                        <button class='btn btn-sm btn-primary'>ลบ</button>
+                                        </form>
+                                        </td>";
+                                        echo "<td>" . $row['draw1_remark'] . "</td>";
                                         echo "</tr>";
                                         $num++;
                                         }

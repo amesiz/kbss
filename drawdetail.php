@@ -1,3 +1,23 @@
+<?php
+include "inc/dbcon.php";
+
+$sql="SELECT * FROM draw1";
+$draw1_status = $_GET['draw1_status'];
+
+if(isset($_GET['delete_no']))
+{
+ mysqli_query($con,"DELETE FROM draw1 WHERE draw1_no=".$_GET['delete_no']);
+ //mysql_query($sql_query);
+ header("Location: drawdetail.php");
+}
+if(isset($_GET['update_no']))
+{
+ mysqli_query($con,"UPDATE draw1 SET draw1_status='1' WHERE draw1_no=".$_GET['update_no']);
+ //mysql_query($sql_query);
+ header("Location: drawdetail.php");
+}
+mysqli_close($con);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +29,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Job :-)</title>
+    <title>Draw :-)</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -26,7 +46,32 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
+<script type="text/javascript">
+function delete_no(no)
+{
+ if(confirm('Sure To Remove This Record ?'))
+ {
+  window.location.href='drawdetail.php?delete_no='+no;
+ }
+}
+</script>
+<script type="text/javascript">
+function update_no(no)
+{
+ if(confirm('Sure To Applove This Record ?'))
+ {
+  window.location.href='drawdetail.php?update_no='+no;
+ }
+}
+</script>
+<script type="text/javascript">
+function draw1_status(no)
+{
+  window.location.href='drawdetail1.php?draw1_status='+no;
+}
+</script>
 </head>
 
 <body>
@@ -43,7 +88,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="dashboard.html">KB Shipping Service</a>
+                <a class="navbar-brand" href="dashboard.php">KB Shipping Service</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -153,13 +198,25 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li>
-                        <a href="dashboard.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="dashboard.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="jobs.php"><i class="fa fa-arrow-circle-right"></i> Jobs</a>
                     </li>
                     <li>
                         <a href="customer.php"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Customer</a>
+                    </li>
+                    <li class="active">
+                        <a href="drawdetail.php"><span class="glyphicon glyphicon-bitcoin"></span> เงินเบิก</a>
+                    </li>
+                    <li>
+                        <a href="customer.php"><span class="glyphicon glyphicon-road"></span> Transport</a>
+                    </li>
+                    <li>
+                        <a href="customer.php"><span class="glyphicon glyphicon-earphone"></span> Customer Service</a>
+                    </li>
+                    <li>
+                        <a href="customer.php"><span class="glyphicon glyphicon-briefcase"></span> Shipping</a>
                     </li>
                     <li>
                         <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
@@ -197,8 +254,8 @@
             </div>
             <!-- /.navbar-collapse -->
         </nav>
-
-        <div id="page-wrapper">
+        
+       <div id="page-wrapper">
 
             <div class="container-fluid">
 
@@ -206,9 +263,10 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Job No.
+                            เงินเบิก
                             <small>
                             <?php
+                            /*
                             //print_r($_GET);
                             
                             //include "navcus.php";
@@ -218,7 +276,6 @@
                             include "inc/dbcon.php";
                             
                             $job_no = $_GET['job_no'];
-                            $min_no = $_GET['min_no'];
                             $sql="SELECT * FROM job WHERE job_no='$job_no'";
                             //$sql="SELECT * FROM customer";
                             $result = mysqli_query($con,$sql);
@@ -234,75 +291,130 @@
                             
                             
                                      //echo "</tr>";
-                            echo "<a href='jobdetail.php?job_no=$job_no'>J$job_name</a>";
+                            echo "J$job_name";
                             mysqli_close($con);
                             //include "bot.php";
-                            ?> 
+                            */
+                            ?>   
+                        
                             </small>
                         </h1>
                         <ol class="breadcrumb">
                             <li>
-                                <i class="fa fa-dashboard"></i>  <a href="dashboard.html">Dashboard</a>
+                                <i class="fa fa-dashboard"></i>  <a href="dashboard.php">Dashboard</a>
                             </li>
                             <li class="active">
-                                <i class="fa fa-file"></i> <a href="customer.php">Jobs</a>
+                                <i class="fa fa-file"></i> <a href="drawdetail.php">เงินเบิก</a>
                             </li>
                         </ol>
-                    </div>
-                </div>
-                <!-- /.row -->
-                <form action="itemmin_add2.php" name="frmMain" method="post" target="iframe_target">
-                     
-                        	<iframe id="iframe_target" name="iframe_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
-                        	<script language="JavaScript">
-                        		function showResult(result)
-                        		{
-                        			if(result==1)
-                        			{
-                        				document.getElementById("divResult").innerHTML = "<font color=green> Save successfully! </font>  <br>";
-                        			}
-                        			else
-                        			{
-                        				document.getElementById("divResult").innerHTML = "<font color=red> Error!! Cannot save data </font> <br>";
-                        			}
-                        		}
-                        	</script>
-                            
-                <div class="row">
-                    <div class="col-lg-12">
                         
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover">
+                </div>
+
+                </div>
+                
+                    <!-- /.row -->
+                    <div class="row">
+                    <div class="col-lg-12" >
+                        <a href='drawdetail.php'><button class='btn btn-primary'>ทั้งหมด</button></a>
+                        <a href='javascript:draw1_status(0)'><button class='btn btn-primary'>รออนุมัติ</button></a>
+                        <a href='javascript:draw1_status(1)'><button class='btn btn-primary'>ยังไม่ได้เคลียร์</button></a>
+                        <a href='javascript:draw1_status(2)'><button class='btn btn-primary'>เคลียร์แล้ว</button></a>
+                    </div>
+                    </div>
+                    <div class="table-responsive">
+                            <table class="table table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th>ลักษณะของบรรจุภัณฑ์</th>
-                                        <th>จำนวน</th>
-                                        
+                                        <th>#</th>
+                                        <th>Job No.</th>
+                                        <th>รายการ</th>
+                                        <th>เบิกจำนวน(บาท)</th>
+                                        <th>ค้างจำนวน(บาท)</th>
+                                        <th>สถานะ</th>
+                                        <th>อนุมัติ</th>
+                                        <th>เคลียร์</th>
+                                        <th>ลบ</th>
+                                        <th>หมายเหตุ</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>CBM or TON</td>
-                                       
-                                        <td>
-                                            <div class="form-group">
-                                                
-                                                <input type="text" class="form-control" placeholder="Enter Number"  id="tmin" name="tmin">
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <?php
+                                    include "inc/dbcon.php";
 
+                                    $result = mysqli_query($con,$sql);
+                                    $num=1;
+                                    while($row = mysqli_fetch_array($result))
+                                        {
+                                        $draw1_no = $row['draw1_no'];
+                                        $draw1_status = $row['draw1_status'];
+                                        $job_no = $row['job_no'];
+                                        //echo "<tr data-href='jobdetail.php?job_no=" . $job_no . "'>";
+                                        echo "<tr>";
+                                        echo "<td>" . $num . "</td>";
 
+                                        $sql1="SELECT * FROM job WHERE job_no='$job_no'";
+                                        $result1 = mysqli_query($con,$sql1);
+                                        $row1 = mysqli_fetch_array($result1);
+                                        $job_name = $row1['job_name'];
+                                        echo "<td>J$job_name</td>";
+                                        
+                                        echo "<td>" . $row['draw1_name'] . "</td>";
+                                        echo "<td>" . $row['draw2'] . "</td>";
+                                        echo "<td>" . $row['draw1'] . "</td>";
+                                        //echo "<td>" . $row['draw1_status'] . "</td>";
+                                        if($draw1_status==0){
+                                        $ss = "รออนุมัติ";
+                                        echo "<td>$ss</td>";
+                                        echo "<td><a href='javascript:update_no($draw1_no)'><button class='btn btn-sm btn-primary'>อนุมัติ</button></a></td>";
+                                        echo "<td></td>";
+                                        } elseif($draw1_status==1) {
+                                            $ss = "ยังไม่ได้เคลียร์";
+                                            echo "<td>$ss</td>";
+                                            echo "<td></td>";
+                                            echo "<td>
+                                                <form action='draw1_edit1.php'>
+                                                <input type='hidden' name='job_no' value='$job_no' />
+                                                <input type='hidden' name='draw1_no' value='$draw1_no' />
+                                                <button class='btn btn-sm btn-primary'>เคลียร์</button>
+                                                </form>
+                                                </td>";
+                                        } else {
+                                             $ss = "เคลียร์แล้ว";
+                                             echo "<td>$ss</td>";
+                                             echo "<td></td>";
+                                             echo "<td></td>";
+                                        }
+                                        //echo "<td>$ss</td>";
+                                        //echo "<td><a href='javascript:update_no($draw1_no)'><button class='btn btn-sm btn-primary'>อนุมัติ</button></a></td>";
+                                        echo "<td><a href='javascript:delete_no($draw1_no)'><button class='btn btn-sm btn-primary'>ลบ</button></a></td>";
+                                        echo "<td>" . $row['draw1_remark'] . "</td>";
+                                        echo "</tr>";
+                                        $num++;
+                                        }
+                                    mysqli_close($con);
+                                    ?>
+                                    
                                 </tbody>
                             </table>
                         </div>
-                        <input type="hidden" name="min_no" value="<?php echo($min_no); ?>" />
-                        <input type="hidden" name="inv_no" value="<?php echo($inv_no); ?>" />
-                        <input type="hidden" name="job_no" value="<?php echo($job_no); ?>" />
-                        <input class="btn btn-default" type="submit" name="submit" value="save">
+                    </div>
+                     <!-- /.row -->
+                     <br>
+                <!-- /.row -->
+                <br>
+                <!--
+                    <div class="row">
+                    <div class="col-lg-12" >
+                        <form action="customer_edit1.php">
+                            <input type="hidden" name="cus_no" value="<?php //echo($cus_no); ?>" />
+                            <button class="btn btn-primary">Customer Edit</button>
+                        </form>
 
-                    </form>
-                </div>
+                    </div>
+                    </div>
+                    -->
+                <!-- /.row -->
+                                    
             </div>
             <!-- /.container-fluid -->
 

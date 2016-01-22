@@ -345,7 +345,7 @@ $(document).ready(function(){
                     <div class="col-lg-12" >
                         <form action="inv_add1.php">
                             <input type="hidden" name="cus_no" value="<?php echo($cus_no); ?>" />
-                            <button class="btn btn-primary">Invoice</button>
+                            <button class="btn btn-primary">Quotation</button>
                         </form>
 
                     </div>
@@ -356,7 +356,7 @@ $(document).ready(function(){
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Invoice</th>
+                                        <th>Quotation</th>
                                         <th>Date</th>
                                     </tr>
                                 </thead>

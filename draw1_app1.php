@@ -218,7 +218,7 @@
                             include "inc/dbcon.php";
                             
                             $job_no = $_GET['job_no'];
-                            $min_no = $_GET['min_no'];
+                            //$cont_no = $_GET['cont_no'];
                             $sql="SELECT * FROM job WHERE job_no='$job_no'";
                             //$sql="SELECT * FROM customer";
                             $result = mysqli_query($con,$sql);
@@ -245,13 +245,13 @@
                                 <i class="fa fa-dashboard"></i>  <a href="dashboard.html">Dashboard</a>
                             </li>
                             <li class="active">
-                                <i class="fa fa-file"></i> <a href="customer.php">Jobs</a>
+                                <i class="fa fa-file"></i> <a href="customer.php">Customer</a>
                             </li>
                         </ol>
                     </div>
                 </div>
                 <!-- /.row -->
-                <form action="itemmin_add2.php" name="frmMain" method="post" target="iframe_target">
+                <form action="draw1_add2.php" name="frmMain" method="post" target="iframe_target">
                      
                         	<iframe id="iframe_target" name="iframe_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
                         	<script language="JavaScript">
@@ -267,37 +267,75 @@
                         			}
                         		}
                         	</script>
-                            
+                        	<!--
+                        	<div class="form-group">
+                                <label>งานบริการดำเนินการพิธีการศุลกากร</label>
+                                <select class="form-control" id="ship" name="ship">
+                                    <option value="1">นำเข้า</option>
+                                    <option value="2">ส่งออก</option>
+                                </select>
+                            </div>
+                            -->
                 <div class="row">
                     <div class="col-lg-12">
-                        
+                        <!--
+                        <div class="form-group">
+                                <label>บริการ</label>
+                                <input class="form-control" placeholder="Enter text" id="pership_name" name="pership_name">
+                        </div>
+                        -->
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>ลักษณะของบรรจุภัณฑ์</th>
-                                        <th>จำนวน</th>
-                                        
+                                        <th>รายการ</th>
+                                        <th>จำนวน(บาท)</th>
+                                        <th>หมายเหตุ</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>CBM or TON</td>
-                                       
                                         <td>
                                             <div class="form-group">
-                                                
-                                                <input type="text" class="form-control" placeholder="Enter Number"  id="tmin" name="tmin">
+                                                <!-- label>บริการ</label> -->
+                                                <input class="form-control" placeholder="Enter text" id="draw1_name" name="draw1_name">
                                             </div>
                                         </td>
+                                        </td>
+                                        <!--
+                                        <td>
+                                            <div class="form-group">
+                                                <select class="form-control" id="ordera_type" name="ordera_type">
+                                                    <option value="1">บาท/Shipment</option>
+                                                    <option value="2">บาท/รายการ</option>
+                                                    <option value="3">บาท/คำร้อง</option>
+                                                    <option value="4">บาท/ชั่วโมง</option>
+                                                    <option value="5">บาท/สถานที่</option>
+                                                    <option value="6">บาท/Container</option>
+                                                    <option value="7">บาท/Shipment/ตู้</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        -->
+                                        <td>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon"><i class="fa fa-btc"></i></span>
+                                                <input type="text" class="form-control" placeholder="Enter Number"  id="draw1" name="draw1">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <!-- label>บริการ</label> -->
+                                                
+                                                <input class="form-control" placeholder="Enter text" id="draw1_remask" name="draw1_mask">
+                                            </div>
+                                        </td>
+                                        </td>
                                     </tr>
-
-
                                 </tbody>
                             </table>
                         </div>
-                        <input type="hidden" name="min_no" value="<?php echo($min_no); ?>" />
-                        <input type="hidden" name="inv_no" value="<?php echo($inv_no); ?>" />
+                
                         <input type="hidden" name="job_no" value="<?php echo($job_no); ?>" />
                         <input class="btn btn-default" type="submit" name="submit" value="save">
 

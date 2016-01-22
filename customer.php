@@ -64,7 +64,7 @@ $(document).ready(function(){
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="dashboard.html">KB Shipping Service</a>
+                <a class="navbar-brand" href="dashboard.php">KB Shipping Service</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -174,7 +174,7 @@ $(document).ready(function(){
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li>
-                        <a href="dashboard.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="dashboard.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
                         <a href="jobs.php"><i class="fa fa-arrow-circle-right"></i> Jobs</a>
@@ -232,7 +232,7 @@ $(document).ready(function(){
                         </h1>
                         <ol class="breadcrumb">
                             <li>
-                                <i class="fa fa-dashboard"></i>  <a href="dashboard.html">Dashboard</a>
+                                <i class="fa fa-dashboard"></i>  <a href="dashboard.php">Dashboard</a>
                             </li>
                             <li class="active">
                                 <i class="fa fa-file"></i> Customer
